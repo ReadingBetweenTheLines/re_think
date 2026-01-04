@@ -1,0 +1,391 @@
+/* src/pages/Materi1.css */
+@import url('https://fonts.googleapis.com/css2?family=Special+Elite&family=Permanent+Marker&family=Patrick+Hand&display=swap');
+
+:root {
+    --cork-pattern: url("https://www.transparenttextures.com/patterns/cork-board.png");
+    --cork-color: #2c1e12; /* Noir Dark Brown */
+    --ink-red: #b91c1c;
+    --ink-black: #1e293b;
+    
+    --font-type: 'Special Elite', monospace;
+    --font-hand: 'Patrick Hand', cursive;
+    --font-stamp: 'Permanent Marker', cursive;
+}
+
+/* 1. THE ROOM */
+.detective-room {
+    position: fixed; /* Locks viewport on desktop */
+    top: 0; left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--cork-color);
+    background-image: var(--cork-pattern);
+    background-repeat: repeat;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: var(--font-type);
+    color: var(--ink-black);
+    touch-action: none; /* Prevents scroll on desktop, overridden for mobile */
+    z-index: 0;
+}
+
+/* Vignette Overlay */
+.detective-room::after {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(transparent 30%, rgba(0,0,0,0.95));
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* FLASHLIGHT LAYER (Bright Beam) */
+.flashlight-layer {
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    pointer-events: none;
+    z-index: 999;
+    background: radial-gradient(
+        circle 250px at var(--x) var(--y), 
+        rgba(0,0,0,0) 0%, 
+        rgba(0,0,0,0.05) 30%, 
+        rgba(0,0,0,0.98) 100%
+    );
+    mix-blend-mode: multiply;
+    transition: background 0.05s ease;
+}
+
+.light-switch {
+    position: fixed; top: 20px; right: 20px;
+    background: #222; color: #facc15;
+    border: 2px solid #444;
+    width: 50px; height: 50px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.5rem; cursor: pointer;
+    z-index: 2000;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.8);
+}
+
+/* 2. THE WALL BOARD */
+.wall-board {
+    position: relative;
+    width: 1200px;
+    height: 800px;
+    transform-origin: center;
+    z-index: 10;
+}
+
+/* 3. EVIDENCE ITEMS */
+.evidence-item {
+    position: absolute;
+    background: #f8fafc;
+    padding: 15px;
+    box-shadow: 10px 15px 25px rgba(0,0,0,0.6);
+    cursor: pointer;
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    z-index: 10;
+    max-width: 250px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Trap positions */
+.trap-1 { top: 10%; left: 15%; transform: rotate(-5deg); }
+.trap-2 { top: 15%; right: 15%; transform: rotate(4deg); }
+.trap-3 { bottom: 15%; left: 20%; transform: rotate(3deg); }
+.trap-4 { bottom: 10%; right: 20%; transform: rotate(-3deg); }
+
+.evidence-item:not(.hub-file):hover {
+    z-index: 20;
+    transform: scale(1.1) !important;
+    box-shadow: 15px 25px 40px rgba(0,0,0,0.7);
+}
+
+/* --- HUB FILE (CENTER CARD - FOLD OUT) --- */
+.hub-file {
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%) rotate(2deg);
+    width: 350px; max-width: 350px;
+    height: auto; /* Allow growth */
+    padding: 0;
+    background: #e7cba3; 
+    border: 1px solid #8b6b4a;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden;
+    border-radius: 2px;
+}
+
+.hub-file:hover {
+    z-index: 50;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+    background: #fef3c7; 
+    border-color: #d4d4d4;
+}
+
+.hub-header {
+    width: 100%;
+    padding: 30px 30px 10px 30px;
+    text-align: center;
+    background: transparent;
+    z-index: 2;
+    position: relative;
+}
+
+.hub-secret {
+    width: 100%;
+    background: rgba(255,255,255,0.6);
+    overflow: hidden;
+    transform-origin: top center;
+    border-top: 2px dashed #b91c1c;
+}
+
+.reveal-text {
+    font-family: var(--font-type);
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #334155;
+    padding: 20px 30px 30px 30px;
+}
+
+.red-marker { color: #b91c1c; font-weight: bold; font-family: var(--font-hand); }
+
+/* Pin & Visuals */
+.pin {
+    width: 24px; height: 24px;
+    background: radial-gradient(circle at 30% 30%, #b91c1c, #4a0404);
+    border-radius: 50%;
+    position: absolute; top: 10px; left: 50%; transform: translateX(-50%);
+    box-shadow: 2px 4px 8px rgba(0,0,0,0.7);
+    z-index: 10;
+}
+.pin.silver { background: radial-gradient(circle at 30% 30%, #94a3af, #334155); top:-10px; }
+
+.polaroid-img {
+    width: 100%; height: 120px;
+    background: #0f172a;
+    display: flex; align-items: center; justify-content: center;
+    color: #e2e8f0; font-size: 3rem; margin-bottom: 10px;
+    border: 4px solid white;
+}
+.handwritten-label {
+    font-family: var(--font-hand);
+    font-size: 1.2rem; font-weight: bold; color: var(--ink-red);
+    text-align: center; line-height: 1.1;
+}
+
+/* 4. RED STRINGS */
+.string-layer { position: absolute; inset: 0; pointer-events: none; z-index: 5; }
+.string-line {
+    stroke: #b91c1c; stroke-width: 3; fill: none;
+    stroke-dasharray: 1000; stroke-dashoffset: 1000;
+    transition: stroke-dashoffset 2s ease-out;
+    filter: drop-shadow(2px 4px 2px rgba(0,0,0,0.6));
+}
+.string-visible { stroke-dashoffset: 0; }
+
+/* 5. ZOOMED MODAL */
+.focus-overlay {
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.92);
+    z-index: 100; display: flex; justify-content: center; align-items: center;
+    backdrop-filter: blur(5px);
+}
+
+.focus-card {
+    background: #f8fafc;
+    width: 90%; max-width: 600px; padding: 40px; border-radius: 2px; position: relative;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
+}
+
+.close-btn {
+    position: absolute; top: -15px; right: -15px;
+    background: #b91c1c; color: white; border: none; 
+    width: 40px; height: 40px; border-radius: 50%;
+    font-size: 1.5rem; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.5);
+}
+
+/* 6. QUIZ UI */
+.source-text {
+    background: #e2e8f0; padding: 20px; border-left: 5px solid #1e293b;
+    margin-bottom: 20px; font-size: 1.1rem; line-height: 1.6;
+}
+
+.option-btn {
+    display: block; width: 100%; text-align: left; 
+    padding: 15px 40px 15px 15px;
+    background: white; border: 2px solid #1e293b; margin-bottom: 15px;
+    font-family: var(--font-type); cursor: pointer; transition: 0.1s;
+    font-size: 1rem; position: relative; color: #1e293b;
+}
+
+/* Subtle Hover */
+.option-btn:hover:not(:disabled) { 
+    background: #cbd5e1; border-width: 3px; transform: scale(1.01);
+}
+
+.strikethrough {
+    position: absolute; top: 50%; left: 5px; right: 5px; height: 3px; background: #b91c1c;
+    transform: translateY(-50%) rotate(-1deg); z-index: 10; box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+}
+.feedback-icon { position: absolute; right: 15px; top: 50%; transform: translateY(-50%); font-size: 1.5rem; font-weight: bold; }
+.icon-x { color: #b91c1c; } .icon-check { color: #16a34a; }
+
+/* 7. EXTRAS */
+.id-card {
+    position: absolute; top: 5%; left: 5%; width: 220px; background: #f1f5f9;
+    border-radius: 8px; box-shadow: 0 10px 20px rgba(0,0,0,0.6);
+    overflow: hidden; transform: rotate(-5deg); font-family: sans-serif; z-index: 5; transition: 0.3s;
+}
+.id-card:hover { transform: scale(1.1) rotate(0deg); z-index: 50; }
+.id-header { background: #1e293b; color: white; padding: 10px; font-size: 0.7rem; letter-spacing: 1px; text-align: center; }
+.id-body { padding: 15px; display: flex; flex-direction: column; align-items: center; }
+.id-photo { width: 80px; height: 80px; background: #94a3af; border-radius: 4px; margin-bottom: 10px; display: flex; align-items: center; justify-content: center; font-size: 2rem; border: 2px solid #475569; }
+.id-rank { font-weight: 900; font-size: 1.1rem; color: #b91c1c; text-transform: uppercase; }
+.id-name { font-size: 0.8rem; color: #475569; margin-bottom: 5px; }
+.id-progress { width: 100%; height: 6px; background: #cbd5e1; margin-top: 10px; border-radius: 10px; overflow: hidden; }
+.id-fill { height: 100%; background: #16a34a; transition: width 0.5s ease; box-shadow: 0 0 10px #16a34a; }
+
+.coffee-stain {
+    position: absolute; bottom: 10%; right: 10%; width: 150px; height: 150px;
+    border: 10px solid rgba(36, 18, 6, 0.3); border-radius: 50%; pointer-events: none; z-index: 1;
+    transform: scale(1.2) skew(10deg); filter: blur(2px); box-shadow: inset 0 0 10px rgba(36, 18, 6, 0.2);
+}
+
+.final-report {
+    bottom: 5%; left: 50%; transform: translateX(-50%) rotate(0deg); z-index: 5;
+    background: #f8fafc; width: 400px; padding: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.7); border: 1px solid #ccc;
+    z-index: 5000;
+}
+
+.nav-back {
+    position: absolute; top: 20px; left: 20px; background: black; color: white; padding: 10px 20px; text-decoration: none; transform: rotate(-2deg); z-index: 1001; box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+}
+
+/* MOBILE OPTIMIZATION */
+@media (max-width: 800px) {
+    .detective-room {
+        position: relative; /* Allow scrolling */
+        display: block; 
+        height: auto; 
+        min-height: 100vh;
+        overflow-y: auto;
+        padding-bottom: 50px;
+        background-color: #1a120b;
+        touch-action: auto;
+    }
+    
+    .wall-board {
+        width: 100%; height: auto; display: flex; flex-direction: column; align-items: center; gap: 30px; padding-top: 80px; transform: none;
+    }
+
+    .evidence-item, .hub-file, .id-card {
+        position: relative !important; top: auto !important; left: auto !important; right: auto !important; bottom: auto !important;
+        transform: rotate(0deg) !important; margin: 0; width: 90%; max-width: 400px; height: auto;
+    }
+    .id-card { order: -1; margin-bottom: 20px; }
+    .string-layer, .coffee-stain { display: none; }
+    
+    /* Keep flashlight on mobile */
+    .flashlight-layer {
+        background: radial-gradient(
+            circle 250px at var(--x) var(--y),
+            rgba(0,0,0,0) 0%, rgba(0,0,0,0.05) 30%, rgba(0,0,0,0.98) 100%
+        );
+    }
+}
+
+/* ... existing CSS ... */
+
+/* AUDIO TOGGLE (Top Left) */
+.audio-switch {
+    position: fixed; top: 80px; right: 20px; /* Below flashlight toggle */
+    background: #222; color: #3b82f6;
+    border: 2px solid #444;
+    width: 50px; height: 50px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.5rem; cursor: pointer;
+    z-index: 2000;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.8);
+    transition: 0.2s;
+}
+.audio-switch:hover { transform: scale(1.1); color: #60a5fa; border-color: #fff; }
+.audio-switch.muted { color: #64748b; border-color: #333; }
+
+/* HIDDEN SCRIBBLES (Background Text) */
+.scribble {
+    position: absolute;
+    font-family: 'Permanent Marker', cursive;
+    color: rgba(185, 28, 28, 0.4); /* Faint Red */
+    pointer-events: none; /* Can't click them */
+    z-index: 1; /* On the board, below the items */
+    text-align: center;
+    line-height: 1;
+    transform-origin: center;
+}
+
+/* Specific Scribble Styles */
+.scr-1 { top: 20%; left: 40%; font-size: 1.5rem; transform: rotate(-10deg); }
+.scr-2 { bottom: 30%; right: 10%; font-size: 2rem; transform: rotate(15deg); }
+.scr-3 { top: 10%; left: 10%; font-size: 1.2rem; transform: rotate(5deg); opacity: 0.3; }
+.scr-4 { bottom: 10%; left: 40%; font-size: 3rem; transform: rotate(-5deg); color: rgba(0,0,0,0.2); }
+
+/* MOBILE ADJUSTMENTS */
+@media (max-width: 800px) {
+    .audio-switch { top: 20px; right: 80px; } /* Move next to flashlight */
+    .scribble { opacity: 0.1; } /* Fainter on mobile so it doesn't clutter */
+}
+
+/* --- VICTORY POPUP (The Big Stamp) --- */
+.victory-overlay {
+    position: fixed; inset: 0;
+    display: flex; justify-content: center; align-items: center;
+    pointer-events: none; z-index: 3000;
+    z-index: 9999;
+}
+
+.case-closed-stamp {
+    font-family: var(--font-stamp);
+    font-size: 8rem;
+    color: var(--ink-red);
+    border: 10px solid var(--ink-red);
+    padding: 20px 60px;
+    border-radius: 10px;
+    text-transform: uppercase;
+    transform: rotate(-15deg);
+    /*opacity: 0; /* Hidden by default, animated by Framer Motion */
+    text-shadow: 2px 2px 0px rgba(0,0,0,0.2);
+    box-shadow: 0 0 50px rgba(185, 28, 28, 0.5);
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(2px);
+}
+
+/* Update the Final Report Button to be more prominent */
+.next-case-btn {
+    display: block;
+    background: #1e293b; 
+    color: white; 
+    text-align: center; 
+    padding: 15px; 
+    text-decoration: none; 
+    font-weight: bold; 
+    margin-top: 20px;
+    font-family: var(--font-type);
+    letter-spacing: 1px;
+    border: 2px solid #1e293b;
+    transition: 0.2s;
+}
+.next-case-btn:hover {
+    background: var(--ink-red);
+    border-color: var(--ink-red);
+    transform: scale(1.02);
+}
+
+/* Mobile Adjustment */
+@media (max-width: 800px) {
+    .case-closed-stamp { font-size: 4rem; border-width: 6px; }
+}

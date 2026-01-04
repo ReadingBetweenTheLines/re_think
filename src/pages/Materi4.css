@@ -1,0 +1,1167 @@
+:root {
+    --bg: #09090b;
+    --card-bg: #18181b;
+    --accent: #8b5cf6;
+    /* Purple */
+    --pop-pink: #ff00ff;
+    /* Hot Pink */
+    --chaos-yellow: #ffff00;
+    /* Electric Yellow */
+    --cyan: #00ffff;
+    --focus: #f59e0b;
+    --neon-green: #39ff14;
+    --neon-red: #ff073a;
+    --text-main: #f1f5f9;
+    --text-dim: #a1a1aa;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg);
+    /* Noise texture for that gritty feel */
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+    color: var(--text-main);
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+h1,
+h2,
+h3,
+.marker-font {
+    font-family: 'Permanent Marker', cursive;
+    letter-spacing: 1px;
+}
+
+.mono {
+    font-family: 'JetBrains Mono', monospace;
+}
+
+/* --- HUD (Glitch Header) --- */
+.hud {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+    margin-left: 0;
+    padding: 10px 30px;
+    background: rgba(9, 9, 11, 0.9);
+    border-bottom: 3px dashed var(--accent);
+    position: sticky;
+    top: 0;
+    z-index: 100;   
+    backdrop-filter: blur(5px);
+    box-shadow: 0 5px 0 rgba(139, 92, 246, 0.3);
+}
+
+.brand {
+    font-family: 'Permanent Marker', cursive;
+    font-size: 1.8rem;
+    color: var(--pop-pink);
+    text-shadow: 2px 2px 0 var(--cyan);
+    transform: rotate(-2deg);
+}
+
+.brand span {
+    color: var(--chaos-yellow);
+}
+
+.stats {
+    display: flex;
+    gap: 15px;
+    font-size: 0.9rem;
+    font-weight: 800;
+    position: absolute;
+    right: 30px;
+    top: 15%;
+    transform: trasnlateY(-50%);
+}
+
+.stat-item {
+    background: var(--card-bg);
+    padding: 8px 15px;
+    border: 2px solid var(--text-dim);
+    transform: skew(-10deg);
+    box-shadow: 3px 3px 0 var(--accent);
+}
+
+.stat-val {
+    color: var(--neon-green);
+    font-family: 'JetBrains Mono';
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* --- MENU GRID (Sticker Look with Performance Fix) --- */
+.menu-title {
+    text-align: center;
+    margin-bottom: 10px;
+    font-size: 3rem;
+    color: var(--chaos-yellow);
+    -webkit-text-stroke: 1px var(--pop-pink);
+}
+
+.level-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.level-card {
+    background: var(--card-bg);
+    border: 3px solid var(--text-dim);
+    padding: 25px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    /* PERFORMANCE FIX: GPU Acceleration */
+    transition: transform 0.1s cubic-bezier(0.2, 0.8, 0.2, 1);
+    will-change: transform;
+
+    /* The "Sticker" look */
+    box-shadow: 5px 5px 0px var(--accent);
+    transform: rotate(var(--rotation)) translateZ(0);
+}
+
+/* Random rotations */
+.level-card:nth-child(1) {
+    --rotation: -2deg;
+    --hover-color: var(--pop-pink);
+}
+
+.level-card:nth-child(2) {
+    --rotation: 1deg;
+    --hover-color: var(--cyan);
+}
+
+.level-card:nth-child(3) {
+    --rotation: -1.5deg;
+    --hover-color: var(--chaos-yellow);
+}
+
+.level-card:nth-child(4) {
+    --rotation: 2deg;
+    --hover-color: var(--neon-red);
+}
+
+.level-card:nth-child(5) {
+    --rotation: 1deg;
+    --hover-color: var(--focus);
+}
+
+.level-card:nth-child(6) {
+    --rotation: 2deg;
+    --hover-color: #a855f7;
+}
+
+.level-card:hover {
+    transform: scale(1.02) rotate(0deg) translateZ(0);
+    border-color: var(--hover-color);
+    box-shadow: 8px 8px 0px var(--hover-color);
+    z-index: 10;
+}
+
+.level-icon {
+    font-size: 3rem;
+    margin-bottom: 10px;
+    display: block;
+    filter: drop-shadow(3px 3px 0 rgba(255, 255, 255, 0.2));
+}
+
+.level-title {
+    font-size: 1.5rem;
+    font-weight: 800;
+    margin-bottom: 10px;
+    color: white;
+    font-family: 'Permanent Marker';
+}
+
+.status-badge {
+    align-self: flex-start;
+    padding: 4px 10px;
+    font-size: 0.8rem;
+    font-weight: 900;
+    background: var(--hover-color);
+    color: black;
+    border: 2px solid black;
+    text-transform: uppercase;
+    transform: skew(-10deg);
+    margin-bottom: 15px;
+    font-family: 'JetBrains Mono';
+}
+
+/* --- ACADEMY SCREEN (The Corkboard) --- */
+.academy-screen {
+    display: none;
+}
+
+.dossier-card {
+    background: #1e293b;
+    border: 4px solid var(--focus);
+    box-shadow: 8px 8px 0 var(--focus);
+    padding: 30px;
+    margin-bottom: 30px;
+    background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 20px 20px;
+    transform: rotate(-0.5deg);
+}
+
+.dossier-header {
+    border-bottom: 3px dashed var(--focus);
+    padding-bottom: 15px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.dossier-title {
+    font-size: 2rem;
+    color: var(--focus);
+    margin: 0;
+    text-shadow: 2px 2px 0 black;
+}
+
+.theory-block h3 {
+    color: var(--bg);
+    background: var(--accent);
+    display: inline-block;
+    padding: 5px 15px;
+    transform: skew(-10deg);
+    margin-bottom: 15px;
+    box-shadow: 3px 3px 0 black;
+}
+
+/* The Rationale Box (Sticker style) */
+.rationale-box {
+    background: var(--chaos-yellow);
+    color: black;
+    padding: 20px;
+    transform: rotate(1deg);
+    box-shadow: 5px 5px 0 black;
+    margin: 30px 0;
+    border: 3px solid black;
+}
+
+.rationale-title {
+    font-weight: 900;
+    font-family: 'Permanent Marker';
+    font-size: 1.2rem;
+    display: block;
+    margin-bottom: 10px;
+    border-bottom: 2px solid black;
+}
+
+/* Highlighter Effect */
+.highlight-term {
+    background: var(--pop-pink);
+    color: white;
+    font-weight: 900;
+    padding: 2px 5px;
+    box-shadow: 2px 2px 0 black;
+    font-family: 'Permanent Marker';
+    letter-spacing: 1px;
+}
+
+.highlight-bad {
+    background: var(--neon-red);
+    color: white;
+    padding: 2px 5px;
+    font-weight: bold;
+}
+
+/* Case Study Box */
+.example-container {
+    background: #000;
+    border: 3px solid var(--text-dim);
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.8);
+}
+
+.example-label {
+    color: var(--cyan);
+    font-family: 'JetBrains Mono';
+    font-weight: bold;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.example-text {
+    color: #e2e8f0;
+    font-size: 1.1rem;
+    border-left: 5px solid var(--pop-pink);
+    padding-left: 15px;
+    font-style: italic;
+}
+
+.example-question {
+    margin-top: 15px;
+    color: var(--chaos-yellow);
+    font-weight: bold;
+    border-top: 1px dashed #555;
+    padding-top: 10px;
+}
+
+/* Comparison Grid */
+.comp-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.comp-box {
+    padding: 20px;
+    font-size: 1rem;
+    position: relative;
+    border-width: 3px;
+    border-style: solid;
+    box-shadow: 5px 5px 0 rgba(0, 0, 0, 0.5);
+}
+
+.comp-bad {
+    background: rgba(244, 63, 94, 0.1);
+    border-color: var(--neon-red);
+    transform: rotate(-1deg);
+}
+
+.comp-good {
+    background: rgba(16, 185, 129, 0.1);
+    border-color: var(--neon-green);
+    transform: rotate(1deg);
+}
+
+.comp-header {
+    font-family: 'Permanent Marker';
+    font-size: 1.2rem;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.start-sim-btn {
+    background: var(--pop-pink);
+    color: white;
+    width: 100%;
+    padding: 15px;
+    font-family: 'Permanent Marker';
+    font-size: 1.5rem;
+    border: 3px solid white;
+    cursor: pointer;
+    margin-top: 30px;
+    box-shadow: 5px 5px 0 white;
+    transition: transform 0.1s;
+}
+
+.start-sim-btn:hover {
+    transform: translate(-3px, -3px);
+    box-shadow: 8px 8px 0 white;
+    background: var(--cyan);
+    color: black;
+    border-color: black;
+}
+
+/* --- GAME SIMULATION SCREEN --- */
+.game-interface {
+    display: none;
+}
+
+.terminal {
+    background: #000;
+    border: 3px solid var(--text-dim);
+    padding: 25px;
+    margin-bottom: 25px;
+    box-shadow: 10px 10px 0 rgba(255, 255, 255, 0.1);
+    position: relative;
+}
+
+/* Duct tape effect */
+.terminal::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 20px;
+    background: #333;
+    border: 1px solid #555;
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+.passage {
+    color: #e2e8f0;
+    font-size: 1.1rem;
+    line-height: 1.8;
+    margin-bottom: 25px;
+    padding: 25px;
+    background: #111;
+    border-left: 8px solid var(--accent);
+}
+
+.reveal-highlight {
+    background-color: var(--neon-green);
+    color: black;
+    font-weight: 900;
+    padding: 2px 5px;
+    box-shadow: 0 0 15px var(--neon-green);
+    transform: skew(-2deg);
+    display: inline-block;
+}
+
+.question {
+    color: black;
+    font-weight: 800;
+    font-size: 1.25rem;
+    margin-bottom: 20px;
+    padding: 15px;
+    background: var(--focus);
+    transform: skew(-2deg);
+    box-shadow: 5px 5px 0 black;
+    border: 2px solid black;
+}
+
+.q-focus {
+    text-decoration: underline;
+    text-decoration-thickness: 4px;
+    text-decoration-style: wavy;
+    font-family: 'Permanent Marker';
+    font-size: 1.4rem;
+}
+
+/* Options */
+.option-item {
+    background: #1e293b;
+    border: 2px solid var(--text-dim);
+    margin-bottom: 15px;
+    cursor: pointer;
+    transition: transform 0.1s;
+    position: relative;
+}
+
+.option-btn {
+    background: transparent;
+    border: none;
+    padding: 25px 25px 25px 70px;
+    text-align: left;
+    color: #f1f5f9;
+    cursor: pointer;
+    position: relative;
+    width: 100%;
+    font-size: 1.05rem;
+    font-weight: 600;
+}
+
+.option-btn::before {
+    content: 'A';
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 3px solid var(--text-dim);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-dim);
+    font-family: 'Permanent Marker';
+    font-size: 1.2rem;
+}
+
+/* Letters */
+.option-item:nth-child(1) .option-btn::before {
+    content: 'A';
+}
+
+.option-item:nth-child(2) .option-btn::before {
+    content: 'B';
+}
+
+.option-item:nth-child(3) .option-btn::before {
+    content: 'C';
+}
+
+.option-item:nth-child(4) .option-btn::before {
+    content: 'D';
+}
+
+.option-item:hover {
+    transform: translate(-3px, -3px);
+    box-shadow: 5px 5px 0 var(--accent);
+    border-color: var(--accent);
+}
+
+.option-item.correct {
+    border-color: var(--neon-green);
+    background: rgba(16, 185, 129, 0.1);
+    box-shadow: 5px 5px 0 var(--neon-green) !important;
+    transform: translate(-3px, -3px);
+}
+
+.option-item.correct .option-btn {
+    color: var(--neon-green);
+}
+
+.option-item.correct .option-btn::before {
+    background: var(--neon-green);
+    border-color: black;
+    color: black;
+}
+
+.option-item.wrong {
+    border-color: var(--neon-red);
+    background: rgba(244, 63, 94, 0.1);
+    box-shadow: 5px 5px 0 var(--neon-red) !important;
+    opacity: 0.8;
+}
+
+.option-item.wrong .option-btn {
+    color: var(--neon-red);
+}
+
+.option-item.wrong .option-btn::before {
+    background: var(--neon-red);
+    border-color: black;
+    color: black;
+}
+
+/* Find .feedback-box and REPLACE it with this: */
+.feedback-box {
+    display: none;
+    padding: 20px 25px;
+    font-size: 1rem;
+    border-top: 2px dashed rgba(0, 0, 0, 0.5);
+
+    /* PERFORMANCE FIX: Use Opacity instead of Slide/Height animation */
+    animation: fadeIn 0.2s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.option-item.correct .feedback-box {
+    display: block;
+    background: #064e3b;
+    color: var(--neon-green);
+}
+
+.option-item.wrong .feedback-box {
+    display: block;
+    background: #450a0a;
+    color: var(--neon-red);
+}
+
+.next-btn {
+    background: var(--chaos-yellow);
+    border: 3px solid black;
+    color: black;
+    padding: 15px 40px;
+    font-family: 'Permanent Marker';
+    font-size: 1.3rem;
+    cursor: pointer;
+    box-shadow: 5px 5px 0 black;
+    transition: transform 0.1s;
+    margin-top: 30px;
+    width: 100%;
+}
+
+.next-btn:hover {
+    transform: translate(-3px, -3px);
+    box-shadow: 8px 8px 0 var(--pop-pink);
+    background: var(--pop-pink);
+    color: white;
+}
+
+.back-btn {
+    background: black;
+    border: 2px solid var(--text-dim);
+    color: var(--text-dim);
+    padding: 10px 20px;
+    font-family: 'JetBrains Mono';
+    font-weight: 800;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+
+.back-btn:hover {
+    background: var(--neon-red);
+    color: black;
+    border-color: black;
+}
+
+.progress-container {
+    width: 100%;
+    height: 12px;
+    background: #333;
+    margin-bottom: 25px;
+    border: 2px solid black;
+}
+
+/* Find .progress-bar and REPLACE it with this: */
+.progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, var(--pop-pink), var(--cyan));
+    width: 100%;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+    will-change: transform;
+    /* Tell browser to use GPU */
+}
+
+/* Screen Shake Animation */
+@keyframes shake {
+
+    10%,
+    90% {
+        transform: translate3d(-1px, 0, 0);
+    }
+
+    20%,
+    80% {
+        transform: translate3d(2px, 0, 0);
+    }
+
+    30%,
+    50%,
+    70% {
+        transform: translate3d(-4px, 0, 0);
+    }
+
+    40%,
+    60% {
+        transform: translate3d(4px, 0, 0);
+    }
+}
+
+.shake-screen {
+    animation: shake 0.4s cubic-bezier(.36, .07, .19, .97) both;
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+}
+
+/* --- DECRYPTOR & TOOLTIP STYLES --- */
+.decrypt-btn {
+    background: transparent;
+    border: 2px solid var(--cyan);
+    color: var(--cyan);
+    font-family: 'JetBrains Mono';
+    font-size: 0.8rem;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.1s;
+    margin-left: auto;
+    /* Pushes button to the right */
+}
+
+.decrypt-btn:hover {
+    background: var(--cyan);
+    color: black;
+}
+
+.decrypt-btn.active {
+    background: var(--cyan);
+    color: black;
+    box-shadow: 0 0 10px var(--cyan);
+}
+
+/* The words inside the text */
+.vocab {
+    border-bottom: 1px dashed transparent;
+    transition: none;
+    border-radius: 2px;
+    padding: 0 2px;
+}
+
+/* When Decryptor is ON */
+.decrypt-active .vocab {
+    color: var(--cyan);
+    border-bottom: 1px dashed var(--cyan);
+    cursor: help;
+}
+
+.decrypt-active .vocab:hover {
+    background: rgba(0, 255, 255, 0.2);
+    color: white;
+    box-shadow: 0 0 10px var(--cyan);
+    transition: all 0.1s ease-out;
+}
+
+/* The Floating Tooltip Box */
+.vocab-tooltip {
+    position: fixed;
+    background: #000;
+    border: 2px solid var(--pop-pink);
+    color: var(--pop-pink);
+    padding: 10px 15px;
+    font-family: 'JetBrains Mono';
+    font-weight: bold;
+    font-size: 0.9rem;
+    z-index: 9999;
+    box-shadow: 5px 5px 0 var(--accent);
+    display: none;
+    pointer-events: none;
+    max-width: 250px;
+}
+
+/* Add this to your CSS */
+.terminal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px dashed var(--text-dim);
+    padding-bottom: 15px;
+    margin-bottom: 20px;
+}
+
+/* --- PARAPHRASE MAP STYLES --- */
+.para-map {
+    margin-top: 15px;
+    background: #000;
+    border: 1px dashed var(--cyan);
+    padding: 10px;
+}
+
+.para-header {
+    font-family: 'Permanent Marker';
+    color: var(--cyan);
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+    border-bottom: 1px solid #333;
+    padding-bottom: 5px;
+}
+
+.para-grid {
+    display: grid;
+    grid-template-columns: 1fr 20px 1fr;
+    /* Text -> Arrow -> Answer */
+    gap: 10px;
+    font-family: 'JetBrains Mono';
+    font-size: 0.85rem;
+    align-items: center;
+}
+
+.para-item {
+    color: #888;
+}
+
+.para-arrow {
+    color: var(--pop-pink);
+    font-weight: bold;
+    text-align: center;
+}
+
+.para-match {
+    color: var(--neon-green);
+    font-weight: bold;
+}
+
+/* --- LADDER OF LOGIC VISUALIZER --- */
+.ladder-box {
+    background: #000;
+    border: 1px solid #333;
+    padding: 10px;
+    margin-top: 10px;
+    font-family: 'JetBrains Mono';
+    font-size: 0.8rem;
+}
+
+.ladder-step {
+    padding: 5px;
+    border-left: 2px solid #333;
+    margin-left: 10px;
+    color: #555;
+    position: relative;
+}
+
+.ladder-step.active {
+    color: white;
+    font-weight: bold;
+    border-left-color: var(--cyan);
+}
+
+.ladder-step.trap {
+    color: var(--neon-red);
+    border-left-color: var(--neon-red);
+}
+
+.ladder-arrow {
+    position: absolute;
+    left: -20px;
+    color: var(--neon-red);
+    font-weight: bold;
+}
+
+/* --- RED LIGHT / GREEN LIGHT SCANNER --- */
+.rl-safe {
+    color: var(--neon-green);
+    font-weight: bold;
+    border-bottom: 1px dashed var(--neon-green);
+    cursor: help;
+}
+
+.rl-danger {
+    color: var(--neon-red);
+    font-weight: bold;
+    border-bottom: 1px dashed var(--neon-red);
+    cursor: help;
+}
+
+/* Tooltip for RL/GL */
+.rl-tooltip {
+    position: absolute;
+    background: #111;
+    border: 1px solid white;
+    padding: 5px;
+    font-size: 0.7rem;
+    color: white;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.2s;
+    z-index: 1000;
+}
+
+.rl-danger:hover+.rl-tooltip,
+.rl-safe:hover+.rl-tooltip {
+    opacity: 1;
+}
+
+/* Add this to your Difficulty Badge section */
+.diff-moderate {
+    background: #f59e0b;
+    color: #000;
+    border: 1px solid #fff;
+}
+
+
+
+/* --- 2. THE BADGE (Restored to Solid Sticker Theme) --- */
+.diff-sticker {
+    position: absolute;
+    top: -10px;
+    /* Stick it slightly off the edge */
+    right: 10px;
+    font-size: 0.7rem;
+    font-family: 'JetBrains Mono';
+    font-weight: 900;
+    /* Extra Bold */
+    padding: 4px 10px;
+    transform: rotate(-3deg);
+    /* The sticker is crooked too */
+    box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.5);
+    /* Drop shadow for depth */
+    z-index: 5;
+}
+
+/* The Moderate Color (Solid Amber with Black Text) */
+.mod-color {
+    background: #f59e0b;
+    color: #000;
+    border: 2px solid #fff;
+}
+
+/* --- LEXICON MODAL STYLES --- */
+.lexicon-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    z-index: 2000;
+    backdrop-filter: blur(5px);
+    padding: 40px;
+    overflow-y: auto;
+}
+
+.lexicon-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    background: #09090b;
+    border: 2px solid var(--cyan);
+    box-shadow: 0 0 30px rgba(0, 255, 255, 0.2);
+    padding: 30px;
+    position: relative;
+}
+
+.lexicon-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px dashed #333;
+    padding-bottom: 20px;
+    margin-bottom: 30px;
+}
+
+.close-lex-btn {
+    background: var(--neon-red);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-family: 'JetBrains Mono';
+    font-weight: bold;
+    cursor: pointer;
+    transform: skew(-10deg);
+}
+
+.close-lex-btn:hover {
+    background: white;
+    color: black;
+}
+
+/* Category Headers */
+.lex-cat-title {
+    grid-column: 1 / -1;
+    font-family: 'Permanent Marker';
+    font-size: 1.5rem;
+    color: var(--chaos-yellow);
+    margin-top: 20px;
+    margin-bottom: 10px;
+    border-left: 5px solid var(--pop-pink);
+    padding-left: 15px;
+}
+
+/* The Word Cards */
+.lexicon-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+.lex-card {
+    background: #000;
+    padding: 20px;
+    border: 1px solid #333;
+    font-family: 'JetBrains Mono';
+    transition: transform 0.2s;
+}
+
+.lex-card:hover {
+    transform: translateY(-5px);
+}
+
+.lex-word {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: white;
+    margin-bottom: 5px;
+    display: block;
+}
+
+.lex-type {
+    font-size: 0.75rem;
+    font-weight: bold;
+    padding: 2px 6px;
+    display: inline-block;
+    margin-bottom: 10px;
+}
+
+.lex-desc {
+    font-size: 0.9rem;
+    color: #aaa;
+    line-height: 1.4;
+}
+
+/* Color Coding */
+.lex-bad {
+    border-color: var(--neon-red);
+    background: rgba(255, 7, 58, 0.05);
+}
+
+.lex-bad .lex-type {
+    background: var(--neon-red);
+    color: black;
+}
+
+.lex-good {
+    border-color: var(--neon-green);
+    background: rgba(57, 255, 20, 0.05);
+}
+
+.lex-good .lex-type {
+    background: var(--neon-green);
+    color: black;
+}
+
+.lex-warn {
+    border-color: #f59e0b;
+    background: rgba(245, 158, 11, 0.05);
+}
+
+.lex-warn .lex-type {
+    background: #f59e0b;
+    color: black;
+}
+
+/* MESSY ARROW STYLE (OPTIMIZED) */
+.chaos-arrow {
+    /* Keep pointer events off so you can click through it */
+    pointer-events: none;
+    z-index: 200;
+    filter: drop-shadow(2px 2px 0px #000);
+
+    /* PERFORMANCE FIX: This forces the browser to use the GPU */
+    will-change: transform;
+
+    /* Slower, smoother animation (3s instead of 0.8s) to reduce CPU load */
+    animation: float-arrow 3s ease-in-out infinite alternate;
+}
+
+@keyframes float-arrow {
+
+    /* Minimal movement: Just a gentle bob */
+    from {
+        transform: translateY(0px);
+    }
+
+    to {
+        transform: translateY(-5px);
+    }
+}
+
+/* --- MOBILE RESPONSIVENESS FIXES --- */
+@media (max-width: 768px) {
+
+    /* 1. Fix the Header/HUD */
+    .hud {
+        padding: 10px 15px;
+        /* Smaller padding */
+        flex-direction: column;
+        /* Stack logo on top of button */
+        gap: 10px;
+    }
+
+    .brand {
+        font-size: 1.5rem;
+        /* Slightly smaller logo */
+    }
+
+    /* 2. Hide the Arrow on Mobile (It's too hard to position) */
+    .chaos-arrow {
+        display: none;
+    }
+
+    /* 3. Adjust Title Sizes */
+    .menu-title {
+        font-size: 2rem;
+        /* Shrink giant titles */
+    }
+
+    /* 4. Fix Modal Padding */
+    .lexicon-overlay {
+        padding: 10px;
+        /* Give more room for content */
+    }
+
+    .lexicon-container {
+        padding: 15px;
+    }
+
+    /* 5. Make Game Buttons smaller/tighter */
+    .option-btn {
+        padding: 15px 15px 15px 50px;
+        /* Less padding */
+        font-size: 0.95rem;
+    }
+
+    .option-btn::before {
+        width: 30px;
+        /* Smaller A/B/C/D circles */
+        height: 30px;
+        font-size: 1rem;
+        left: 10px;
+    }
+
+    .container {
+        padding: 15px;
+    }
+}
+
+.nav-chaos-home  {
+    position: fixed;
+    top: -55px;
+    left: 20px;
+    z-index: 9999; /* Ensures it floats above everything */
+    
+    background: #941919;
+    color: #a1a1aa; /* Dim text initially */
+    border: 2px solid #333;
+    
+    padding: 10px 15px;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 800;
+    font-size: 0.9rem;
+    text-decoration: none;
+    
+    /* The Chaos Look */
+    transform: skew(-10deg); 
+    transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 3px 3px 0px #333;
+    margin-top: 65px;
+}
+
+/* Hover Effect: Glitchy & Bright */
+.nav-chaos-home:hover {
+    background: var(--pop-pink); /* Hot Pink Background */
+    color: white;
+    border-color: white;
+    box-shadow: 5px 5px 0px white;
+    transform: skew(-10deg) translate(-2px, -2px);
+}
+
+/* 2. NEXT MATERI BUTTON (Bottom Center) */
+.nav-chaos-next {
+    display: inline-block; /* Fixes width issue */
+    background: #000;
+    border: 3px solid var(--neon-green);
+    color: var(--neon-green);
+    
+    padding: 15px 40px;
+    font-family: 'Permanent Marker', cursive;
+    font-size: 1.5rem;
+    text-decoration: none;
+    text-align: center;
+    
+    box-shadow: 8px 8px 0px var(--neon-green);
+    transform: rotate(-1deg);
+    transition: all 0.2s;
+    
+    /* Center positioning helper if inside a text-align:center div */
+    margin-top: 30px;
+}
+
+.nav-chaos-next:hover {
+    background: var(--neon-green);
+    color: black;
+    box-shadow: 12px 12px 0px white;
+    border-color: white;
+    transform: rotate(1deg) scale(1.05);
+}

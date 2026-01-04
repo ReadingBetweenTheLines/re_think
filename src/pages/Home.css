@@ -1,0 +1,618 @@
+/* src/pages/Home.css */
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Work+Sans:wght@400;600;900&family=Permanent+Marker&family=Share+Tech+Mono&display=swap');
+
+:root {
+    /* RAW PALETTE */
+    --bg-color: #f0f0f0;
+    --card-bg: #ffffff;
+    --border-color: #000000;
+    
+    /* HIGHLIGHTER COLORS */
+    --highlight-yellow: #FFEB3B;
+    --highlight-blue: #A5F3FC;
+    --highlight-pink: #F9A8D4;
+    --highlight-green: #86EFAC;
+    
+    /* SPECIAL MODULE COLORS */
+    --highlight-chaos: #222;      /* Trap Hunter */
+    --highlight-space: #030305;   /* Neural Decoder */
+    --highlight-danger: #dc2626;  /* Final Boss */
+}
+
+.bento-container {
+    min-height: 100vh;
+    background-color: var(--bg-color);
+    background-image: linear-gradient(#e5e5e5 1px, transparent 1px), linear-gradient(90deg, #e5e5e5 1px, transparent 1px);
+    background-size: 20px 20px;
+    padding: 40px 20px;
+    font-family: 'Space Mono', monospace;
+    color: black;
+    display: flex;
+    justify-content: center;
+}
+
+.bento-grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 20px;
+    max-width: 1000px;
+    width: 100%;
+}
+
+/* --- THE "BRUTAL" CARD STYLE --- */
+.bento-card {
+    background: var(--card-bg);
+    border: 3px solid black;
+    box-shadow: 6px 6px 0px 0px black;
+    padding: 25px;
+    position: relative;
+    transition: transform 0.1s ease-in-out;
+}
+
+.bento-card:hover {
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0px 0px black;
+}
+
+/* HERO SECTION */
+.area-hero {
+    grid-column: 1 / 3;
+    background-color: var(--highlight-yellow);
+}
+
+.hero-title {
+    font-family: 'Work Sans', sans-serif;
+    font-weight: 900;
+    font-size: 4rem;
+    line-height: 0.9;
+    text-transform: uppercase;
+    margin: 0;
+    text-shadow: 2px 2px 0px white, 4px 4px 0px black;
+}
+
+.hero-desc {
+    font-size: 1.1rem;
+    margin-top: 20px;
+    background: white;
+    display: inline-block;
+    padding: 5px 10px;
+    border: 2px solid black;
+}
+
+/* GAP ANALYSIS */
+.area-gap { grid-row: span 2; }
+.gap-sticker {
+    background: black; color: white; padding: 5px 10px; font-weight: bold;
+    transform: rotate(-2deg); display: inline-block; margin-bottom: 15px;
+}
+
+.gap-box {
+    border: 2px dashed black; padding: 15px; margin-bottom: 15px; background: white;
+}
+.gb-utbk { background: #ffe4e6; border-style: solid; }
+
+/* DIAGNOSTICS */
+.area-diag { background: white; }
+.diag-list { list-style: none; padding: 0; }
+.diag-list li {
+    border-bottom: 2px solid black; padding: 10px 0; font-weight: bold;
+    display: flex; justify-content: space-between;
+}
+.diag-list li:last-child { border-bottom: none; }
+
+/* --- MODULES GRID (Bottom Row) --- */
+.area-mods {
+    grid-column: 1 / 3;
+    display: grid;
+    /* Responsive Grid: min 200px width cards */
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
+    gap: 20px;
+}
+
+.mod-card {
+    min-width: 150px;
+    background: white;
+    border: 3px solid black;
+    box-shadow: 5px 5px 0px 0px black;
+    padding: 20px;
+    text-decoration: none;
+    color: black;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: 0.1s;
+    position: relative;
+    min-height: 180px;
+    overflow: hidden; /* Important for glow effects */
+}
+
+.mod-card:hover {
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0px 0px black;
+}
+
+/* Basic Modules */
+/* --- MODULE 1: MINDSET (The Detective Case File) --- */
+.mc-1 {
+    /* Underlying Case File Look */
+    background-color: #f0e6d2; 
+    border: 1px solid #a8a29e;
+    position: relative;
+    overflow: hidden;
+    /* Initialize variables to center to avoid glitch on first load */
+    --x: 50%;
+    --y: 50%;
+}
+
+/* 1. The "Hidden" Content */
+.mc-1 h3, .mc-1 p, .mc-1 .mod-num, .mc-1 .evidence-tag {
+    position: relative;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.mc-1 h3 {
+    font-family: 'Courier Prime', monospace;
+    color: #1c1917;
+    border-bottom: 2px solid #1c1917;
+    display: inline-block;
+    font-weight: bold;
+}
+
+.mc-1 p {
+    font-family: 'Courier Prime', monospace;
+    color: #444;
+    font-size: 0.9rem;
+}
+
+/* 2. The Background Watermark */
+.mc-1::before {
+    content: 'TOP SECRET';
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%) rotate(-25deg);
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: #ef4444;
+    border: 4px solid #ef4444;
+    padding: 10px;
+    opacity: 0.2;
+    z-index: 1;
+    font-family: sans-serif;
+}
+
+/* 3. THE FLASHLIGHT LAYER (Updated) */
+.mc-1::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    
+    /* STATE A: AMBIENT MODE (Not Hovering) */
+    /* A fixed, dim light in the center so you can still read the title */
+    background: radial-gradient(
+        circle 200px at 50% 50%, 
+        rgba(0, 0, 0, 0.4) 0%,   /* Center is 40% dark (Readable) */
+        rgba(0, 0, 0, 0.9) 100%  /* Edges are 90% dark (Gloomy) */
+    );
+    
+    pointer-events: none;
+    transition: background 0.2s ease;
+}
+
+/* STATE B: LIGHTS ON (Hover) */
+.mc-1:hover::after {
+    /* Bigger (300px) and Brighter (transparent 20%) */
+    background: radial-gradient(
+        circle 300px at var(--x) var(--y), 
+        transparent 10%, 
+        rgba(0, 0, 0, 0.98) 80%
+    );
+}
+
+/* Hover Border Effect */
+.mc-1:hover {
+    border-color: #ef4444;
+}
+/* --- MODULE 2: TOOLS (The Brutal Zine) --- */
+.mc-2 {
+    /* Base: Neon Yellow Paper */
+    background-color: #f5e653; 
+    border: 3px solid #050505;
+    /* Hard shadow for that "Cutout" look */
+    box-shadow: 8px 8px 0px #050505;
+    position: relative;
+    transform: rotate(1deg); /* Messy tilt */
+    transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    overflow: hidden;
+}
+
+/* 1. The "Duct Tape" Strip at the top */
+.mc-2::before {
+    content: '';
+    position: absolute;
+    top: -15px; left: 50%;
+    transform: translateX(-50%) rotate(-3deg);
+    width: 80px; height: 35px;
+    background: rgba(255, 255, 255, 0.6); /* Semi-transparent tape */
+    border-left: 1px dotted rgba(0,0,0,0.2);
+    border-right: 1px dotted rgba(0,0,0,0.2);
+    z-index: 10;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    pointer-events: none;
+}
+
+/* 2. Ripped Paper Bottom Edge */
+.mc-2 {
+    /* Jagged polygon clip to simulate torn paper */
+    clip-path: polygon(
+        0% 0%, 100% 0%, 100% 95%, 
+        92% 100%, 85% 93%, 78% 100%, 70% 92%, 
+        62% 100%, 55% 93%, 47% 100%, 38% 92%, 
+        30% 100%, 22% 93%, 15% 100%, 7% 94%, 
+        0% 100%
+    );
+    /* Note: We pad the bottom to ensure content isn't clipped */
+    padding-bottom: 30px; 
+}
+
+/* 3. Typography: Ransom Note Style */
+.mc-2 h3 {
+    font-family: 'Archivo Black', sans-serif; /* Thick display font */
+    font-size: 2rem;
+    color: #050505;
+    text-transform: uppercase;
+    line-height: 0.9;
+    transform: rotate(-2deg);
+    text-shadow: 3px 3px 0px #ff2a6d; /* Neon Pink Shadow */
+    margin-bottom: 10px;
+    z-index: 2;
+}
+
+.mc-2 p {
+    font-family: 'Courier Prime', monospace;
+    font-weight: bold;
+    color: #050505;
+    background: #e3e3dc; /* Off-white paper background for text */
+    display: inline-block;
+    padding: 5px;
+    border: 1px solid #050505;
+    transform: rotate(1deg);
+    font-size: 0.85rem;
+}
+
+/* 4. Hover State: Glitch/Pop */
+.mc-2:hover {
+    transform: scale(1.05) rotate(0deg); /* Straighten up and pop */
+    background-color: #ff2a6d; /* Background flips to Pink */
+    box-shadow: 10px 10px 0px #00ffff; /* Shadow flips to Cyan */
+    border-color: #000;
+}
+
+.mc-2:hover h3 {
+    color: #f5e653; /* Text turns Yellow */
+    text-shadow: 3px 3px 0px #000;
+}
+
+/* The Number Badge */
+.mc-2 .mod-num {
+    font-family: 'Permanent Marker', cursive;
+    color: #050505;
+    opacity: 0.15;
+    font-size: 4rem;
+    right: 5px; top: 20px;
+    transform: rotate(10deg);
+}
+/* --- MODULE 3: LOGIC (The Phone Interface) --- */
+.mc-3 {
+    /* Phone Bezel / Screen Background */
+    background-color: #0f172a; /* Dark Slate Blue (Screen off/dim) */
+    border: 4px solid #334155; /* The Phone Frame */
+    border-radius: 20px; /* Rounded corners like a modern phone */
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    box-shadow: 5px 5px 0px #000;
+}
+
+/* 1. STATUS BAR (Top) */
+.mc-3::before {
+    content: '12:00 🔋 📶';
+    position: absolute;
+    top: 8px; left: 0; right: 0;
+    text-align: center;
+    font-family: sans-serif;
+    font-size: 0.6rem;
+    color: rgba(255, 255, 255, 0.5);
+    letter-spacing: 1px;
+    z-index: 10;
+}
+
+/* 2. WALLPAPER (Grid Pattern) */
+.mc-3-bg {
+    position: absolute;
+    inset: 0;
+    /* Blueprint/Grid Wallpaper */
+    background-image: 
+        linear-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+    background-size: 20px 20px;
+    opacity: 0.5;
+    transition: opacity 0.3s;
+}
+
+/* 3. SCREEN CONTENT */
+.mc-3-content {
+    position: relative;
+    z-index: 2;
+    padding-top: 30px; /* Space for status bar */
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.mc-3 h3 {
+    font-family: 'Space Mono', monospace;
+    color: #38bdf8; /* Sky Blue */
+    font-size: 1.5rem;
+    line-height: 1.1;
+    margin-bottom: 5px;
+    text-shadow: 0 0 10px rgba(56, 189, 248, 0.3);
+}
+
+.mc-3 p {
+    color: #94a3b8;
+    font-size: 0.8rem;
+    font-family: sans-serif;
+}
+
+/* 4. THE DOCK (Bottom App Bar) */
+.mc-3-dock {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(5px);
+    border-radius: 16px;
+    padding: 10px;
+    margin-top: auto; /* Push to bottom */
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* APP ICONS */
+.app-icon {
+    width: 35px; height: 35px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    color: white;
+    font-weight: bold;
+    font-family: 'Space Mono';
+    transition: transform 0.2s;
+}
+
+.app-icon.red { background: linear-gradient(135deg, #ef4444, #b91c1c); }
+.app-icon.green { background: linear-gradient(135deg, #22c55e, #15803d); }
+
+/* 5. HOVER STATE: "WAKE SCREEN" */
+.mc-3:hover {
+    transform: translateY(-5px);
+    border-color: #38bdf8; /* Frame glows blue */
+    box-shadow: 0 0 20px rgba(56, 189, 248, 0.3);
+}
+
+.mc-3:hover .mc-3-bg {
+    opacity: 1; /* Wallpaper brightens */
+}
+
+.mc-3:hover .app-icon {
+    transform: translateY(-3px); /* Icons bounce up */
+}
+
+.mc-3 .mod-num {
+    opacity: 0; /* Hide number, doesn't fit phone aesthetic */
+}
+
+.mod-num {
+    font-size: 3rem;
+    font-weight: 900;
+    font-family: 'Work Sans', sans-serif;
+    opacity: 0.2;
+    position: absolute;
+    top: 0; right: 10px;
+    z-index: 0;
+}
+
+/* --- MODULE 4: TRAP HUNTER (Chaos Theme) --- */
+/* --- MODULE 4: TRAP HUNTER (The Scatterbrain/Messy Theme) --- */
+.mc-4 {
+    background-color: #fff;
+    /* Grid paper background */
+    background-image: 
+        linear-gradient(#e5e7eb 1px, transparent 1px),
+        linear-gradient(90deg, #e5e7eb 1px, transparent 1px);
+    background-size: 15px 15px;
+    
+    border: 3px solid #000;
+    /* Messy, uneven border radius */
+    border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+    
+    position: relative;
+    overflow: hidden;
+    color: #000;
+    transform: rotate(-1deg); /* Slight tilt */
+    transition: transform 0.1s;
+}
+
+/* 1. "Coffee Stain" / Mess */
+.mc-4::before {
+    content: '';
+    position: absolute;
+    bottom: -20px; right: -20px;
+    width: 100px; height: 100px;
+    border: 5px solid rgba(139, 69, 19, 0.2);
+    border-radius: 50%;
+    transform: scale(1.2, 1);
+    pointer-events: none;
+}
+
+/* 2. Typography: Mixed Fonts */
+.mc-4 h3 {
+    font-family: 'Permanent Marker', cursive;
+    font-size: 2.2rem;
+    line-height: 0.9;
+    color: #000;
+    transform: rotate(-3deg);
+    margin-bottom: 10px;
+    position: relative;
+    z-index: 2;
+}
+
+/* Highlighter effect behind title */
+.mc-4 h3 span {
+    background: linear-gradient(120deg, #ff00ff 0%, #ff00ff 100%);
+    background-repeat: no-repeat;
+    background-size: 100% 40%;
+    background-position: 0 80%;
+    color: inherit;
+}
+
+.mc-4 p {
+    font-family: 'Courier Prime', monospace;
+    font-size: 0.85rem;
+    font-weight: bold;
+    background: #ffff00; /* Yellow highlighter */
+    display: inline;
+    padding: 2px 5px;
+    box-shadow: 2px 2px 0 rgba(0,0,0,0.2);
+    transform: rotate(1deg);
+}
+
+/* 3. The "Post-it" Note */
+.sticky-note {
+    position: absolute;
+    top: 10px; right: 10px;
+    background: #00ffff; /* Cyan */
+    color: black;
+    padding: 5px;
+    font-size: 0.7rem;
+    font-family: sans-serif;
+    font-weight: bold;
+    transform: rotate(5deg);
+    box-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+    z-index: 5;
+}
+
+/* 4. Hover State: VIBRATE (ADHD Energy) */
+.mc-4:hover {
+    animation: jitter 0.3s infinite;
+    border-color: #ff00ff;
+}
+
+.mc-4:hover h3 span {
+    background-size: 100% 100%; /* Highlighter fills up */
+    color: white;
+}
+
+@keyframes jitter {
+    0% { transform: translate(0,0) rotate(-1deg); }
+    25% { transform: translate(-2px, 1px) rotate(0deg); }
+    50% { transform: translate(1px, -1px) rotate(-2deg); }
+    75% { transform: translate(0, 2px) rotate(-1deg); }
+    100% { transform: translate(0,0) rotate(-1deg); }
+}
+
+/* The Number Badge (Scribbled out) */
+.mc-4 .mod-num {
+    font-family: 'Permanent Marker', cursive;
+    color: #000;
+    opacity: 0.1;
+    font-size: 5rem;
+    left: -10px; top: 0; right: auto;
+    z-index: 0;
+}
+
+/* --- MODULE 5: NEURAL DECODER (Space Theme) --- */
+.mc-5 {
+    background-color: var(--highlight-space);
+    border: 3px solid #334155; /* Slate border */
+    color: #e4e4e7;
+}
+
+/* Space Grid Background */
+.mc-5::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image: 
+        linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+    background-size: 30px 30px;
+    opacity: 0.5;
+    z-index: 0;
+}
+
+/* Glowing Orb */
+.mc-5::after {
+    content: '';
+    position: absolute; bottom: -50px; right: -50px;
+    width: 150px; height: 150px;
+    background: radial-gradient(circle, rgba(0, 243, 255, 0.4) 0%, transparent 70%);
+    filter: blur(20px);
+    z-index: 0;
+    transition: 0.5s;
+}
+
+.mc-5 h3 {
+    font-family: 'Share Tech Mono', monospace;
+    color: #3b82f6; /* Blue/Purple */
+    position: relative; z-index: 2;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.mc-5 p { color: #94a3b8; position: relative; z-index: 2; }
+
+.mc-5:hover {
+    border-color: #00f3ff;
+    box-shadow: 0 0 20px rgba(0, 243, 255, 0.2);
+    transform: translateY(-5px); /* Space float effect */
+}
+
+.mc-5:hover h3 {
+    color: #00f3ff;
+    text-shadow: 0 0 10px rgba(0, 243, 255, 0.5);
+}
+
+/* --- MODULE 6: FINAL BOSS (Danger Theme) --- */
+.mc-6 {
+    background: white;
+    border-color: var(--highlight-danger);
+}
+
+.mc-6 h3 { 
+    color: var(--highlight-danger); 
+    font-family: 'Permanent Marker', cursive;
+}
+
+.mc-6:hover { 
+    background: var(--highlight-danger); 
+    color: white; 
+    border-color: black;
+    transform: translate(2px, 2px); /* Standard bento click */
+    box-shadow: 2px 2px 0px 0px black;
+}
+
+.mc-6:hover h3, .mc-6:hover p { color: white; }
+
+/* Responsive */
+@media (max-width: 800px) {
+    .bento-grid { grid-template-columns: 1fr; }
+    .area-hero, .area-gap, .area-mods { grid-column: 1 / 2; }
+    .hero-title { font-size: 2.5rem; }
+    .area-mods { grid-template-columns: 1fr; } /* Stack modules on mobile */
+}
