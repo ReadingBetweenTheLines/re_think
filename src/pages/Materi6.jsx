@@ -8,14 +8,14 @@ import { saveScore, getLeaderboard } from '../utils/firebase';
 import './Materi6.css'; 
 
 // --- SOUND ASSETS ---
-const sfxWin = new Audio('/sounds/sfx_win.mp3');
-const sfxLose = new Audio('/sounds/sfx_lose.mp3');
-const sfxSlash = new Audio('/sounds/sfx_ability_slash.mp3');
-const sfxScan = new Audio('/sounds/sfx_ability_chain.mp3');
-const sfxSniper = new Audio('/sounds/sfx_ability_sniper.mp3');
-const sfxGun = new Audio('/sounds/sfx_gunshot.mp3');
-const sfxBossCast = new Audio('/sounds/sfx_boss_curse.mp3');
-const sfxAlarm = new Audio('/sounds/sfx_boss_lock.mp3');
+const sfxWin = new Audio(import.meta.env.BASE_URL + '/sounds/sfx_win.mp3');
+const sfxLose = new Audio(import.meta.env.BASE_URL + '/sounds/sfx_lose.mp3');
+const sfxSlash = new Audio(import.meta.env.BASE_URL + '/sounds/sfx_ability_slash.mp3');
+const sfxScan = new Audio(import.meta.env.BASE_URL + '/sounds/sfx_ability_chain.mp3');
+const sfxSniper = new Audio(import.meta.env.BASE_URL + '/sounds/sfx_ability_sniper.mp3');
+const sfxGun = new Audio(import.meta.env.BASE_URL + '/sounds/sfx_gunshot.mp3');
+const sfxBossCast = new Audio(import.meta.env.BASE_URL + '/sounds/sfx_boss_curse.mp3');
+const sfxAlarm = new Audio(import.meta.env.BASE_URL + '/sounds/sfx_boss_lock.mp3');
 
 function FinalBoss() {
   const navigate = useNavigate();
