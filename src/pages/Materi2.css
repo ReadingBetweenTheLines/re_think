@@ -659,3 +659,61 @@
   box-shadow: 8px 8px 0 var(--bz-black);
   border-color: var(--bz-black);
 }
+
+/* --- HOVER TRANSLATION STYLES --- */
+.hover-decode {
+  position: relative;
+  cursor: help;
+  /* Dotted pink underline to hint interaction */
+  text-decoration: underline dotted var(--bz-neon-pink); 
+  text-decoration-thickness: 2px;
+  transition: all 0.2s;
+}
+
+.hover-decode:hover {
+  background-color: rgba(255, 42, 109, 0.1); /* Slight pink highlight */
+}
+
+/* The Tooltip Bubble */
+.hover-decode:hover::after {
+  content: attr(data-indo); /* This pulls the text from React */
+  position: absolute;
+  
+  /* Positioning */
+  bottom: 110%; 
+  left: 50%;
+  transform: translateX(-50%);
+  width: 220px;
+  
+  /* Cyber Style */
+  background: var(--bz-neon-yellow);
+  color: var(--bz-black);
+  padding: 10px;
+  font-family: 'Courier Prime', monospace;
+  font-size: 0.85rem;
+  font-weight: bold;
+  line-height: 1.2;
+  border: 2px solid var(--bz-black);
+  box-shadow: 6px 6px 0 var(--bz-black);
+  z-index: 100;
+  
+  /* Animation */
+  animation: glitch-pop 0.1s linear;
+}
+
+/* Optional: Little triangle pointer */
+.hover-decode:hover::before {
+  content: '';
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 8px solid transparent;
+  border-top-color: var(--bz-black);
+  z-index: 100;
+}
+
+@keyframes glitch-pop {
+  0% { opacity: 0; transform: translateX(-50%) scale(0.8); }
+  100% { opacity: 1; transform: translateX(-50%) scale(1); }
+}

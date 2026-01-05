@@ -5,51 +5,87 @@ import confetti from 'canvas-confetti';
 import './Materi1.css';
 import rainSound from '../assets/rain.mp3';
 
-// --- DATA ---
+// --- UPDATED DATA WITH EXPLANATIONS ---
+// --- UPDATED DATA: 6 COMPLETE TRAPS ---
+// --- UPDATED DATA: RANDOMIZED ANSWERS ---
 const traps = [
     {
         id: 1,
         icon: "🦜",
         title: "The Parrot",
         label: "Verbatim Trap",
-        text: 'The new carbon tax <strong>precipitated a significant shift</strong> in industrial behavior.',
-        question: "What was the result of the tax?",
-        options: ["It caused a major change in industries.", "It precipitated a significant shift."],
+        text: 'The suspect <strong>vehemently denied</strong> the accusations during the interrogation.',
+        question: "What was the suspect's reaction?",
+        // SWAPPED: Correct answer is now first (Index 0)
+        options: ["He strongly rejected the claims.", "He <strong>vehemently denied</strong> to speak."],
         answerIndex: 0,
-        posClass: "trap-1"
+        posClass: "trap-1",
+        explanation: "<strong>The Parrot</strong> lures you with the exact words 'vehemently denied'.<br/><br/>But look closely: the trap option says he denied <em>to speak</em> (grammar error). The correct answer uses a synonym ('rejected the claims')."
     },
     {
         id: 2,
         icon: "⚠️",
         title: "The Extremist",
         label: "Absolute Trap",
-        text: 'Most studies suggest that the collapse was <strong>likely</strong> driven by drought.',
-        question: "What caused the collapse?",
-        options: ["Drought was the <strong>sole</strong> cause.", "Drought was a <strong>probable</strong> factor."],
+        text: 'Forensic evidence <strong>suggests</strong> that the fire was <strong>likely</strong> accidental.',
+        question: "What does the evidence show?",
+        // KEEP: Correct answer is second (Index 1)
+        options: ["The fire was <strong>definitely</strong> an accident.", "The fire was <strong>probably</strong> not intentional."],
         answerIndex: 1,
-        posClass: "trap-2"
+        posClass: "trap-2",
+        explanation: "<strong>The Extremist</strong> turns a soft opinion into a hard fact.<br/><br/>The text uses 'suggests' and 'likely'. The trap uses 'definitely'. In exams, extreme words are almost always wrong."
     },
     {
         id: 3,
         icon: "🎯",
         title: "Wrong Address",
-        label: "Context Trap",
-        text: 'Inflation reduces purchasing power. Consequently, people buy fewer goods.',
-        question: "What is the <strong>CAUSE</strong> of reduced power?",
-        options: ["High inflation rates.", "People buy fewer goods."],
+        label: "Causality Trap",
+        text: 'The heavy fog disrupted the surveillance camera, <strong>causing</strong> a gap in the footage.',
+        question: "What was the <strong>RESULT</strong> of the fog?",
+        // SWAPPED: Correct answer is now first (Index 0)
+        options: ["There was missing footage.", "The surveillance camera malfunctioned."],
         answerIndex: 0,
-        posClass: "trap-3"
+        posClass: "trap-3",
+        explanation: "<strong>Wrong Address</strong> confuses Cause and Effect.<br/><br/><strong>Cause:</strong> Fog &rarr; <strong>Effect:</strong> Missing Footage.<br/>The trap describes the <em>process</em> (camera disruption), but the question asked for the <em>result</em>."
     },
     {
         id: 4,
         icon: "🍎",
         title: "Rotten Apple",
         label: "False Detail",
-        text: 'REM sleep is characterized by rapid eye movements and muscle paralysis.',
-        question: "What happens during REM sleep?",
-        options: ["Eyes move fast and muscles become <strong>active</strong>.", "Eyes move fast and body is immobile."],
+        text: 'The victim was found in the library at midnight, holding a sealed letter.',
+        question: "Describe the discovery of the victim.",
+        // KEEP: Correct answer is second (Index 1)
+        options: ["Found in the library at midnight <strong>holding a weapon</strong>.", "Found late at night with a document."],
         answerIndex: 1,
-        posClass: "trap-4"
+        posClass: "trap-4",
+        explanation: "<strong>The Rotten Apple</strong> is 90% true and 10% poison.<br/><br/>Option A is correct about location/time but lies about the object (weapon vs letter). You must read the <em>entire</em> option."
+    },
+    {
+        id: 5,
+        icon: "⏳",
+        title: "Time Traveler",
+        label: "Timeline Trap",
+        text: 'Investigators <strong>are currently analyzing</strong> the DNA samples and <strong>will release</strong> the report next week.',
+        question: "What is the status of the investigation?",
+        // SWAPPED: Correct answer is now first (Index 0)
+        options: ["The analysis is ongoing.", "The DNA report <strong>has been</strong> released."],
+        answerIndex: 0,
+        posClass: "trap-5",
+        explanation: "<strong>The Time Traveler</strong> messes up the timeline.<br/><br/>The text says the report is in the <em>Future</em> ('will release'). The trap says it is in the <em>Past</em> ('has been released')."
+    },
+    {
+        id: 6,
+        icon: "🐈",
+        title: "The Stray Cat",
+        label: "Out of Scope",
+        text: 'The stolen painting, created in 1890, is valued at over $5 million.',
+        question: "Why is the painting significant?",
+        // KEEP: Correct answer is second (Index 1)
+        options: ["It was painted by <strong>a famous French artist</strong>.", "It has a very high monetary value."],
+        answerIndex: 1,
+        posClass: "trap-6",
+        explanation: "<strong>The Stray Cat</strong> brings in outside information.<br/><br/>Maybe the artist <em>was</em> French, but <strong>the text didn't say that</strong>. You can only answer based <em>strictly</em> on the text."
     }
 ];
 
@@ -62,8 +98,8 @@ const scribbles = [
 
 // --- HELPER: RANK CALCULATION ---
 const getRank = (count) => {
-    if (count === 4) return { title: "MASTER", icon: "🕵️‍♂️" };
-    if (count >= 2) return { title: "DETECTIVE", icon: "👮‍♂️" };
+    if (count === 6) return { title: "MASTER AGENT", icon: "🕵️‍♂️" }; // Requires all 6
+    if (count >= 3) return { title: "DETECTIVE", icon: "👮‍♂️" };
     return { title: "ROOKIE", icon: "👤" };
 };
 
@@ -81,7 +117,7 @@ const playSound = (type) => {
     if (type === 'paper') {
         osc.frequency.setValueAtTime(200, now);
         gainNode.gain.exponentialRampToValueAtTime(0.01, now + 0.1);
-    } else if (type === 'scratch') { 
+    } else if (type === 'scratch') {
         osc.type = 'sawtooth';
         osc.frequency.setValueAtTime(100, now);
         gainNode.gain.exponentialRampToValueAtTime(0.01, now + 0.15);
@@ -94,7 +130,8 @@ const playSound = (type) => {
     osc.start(); osc.stop(now + 0.3);
 };
 
-// --- SUB-COMPONENT: TRAP MODAL ---
+// --- UPDATED SUB-COMPONENT: TRAP MODAL ---
+// Replace your TrapModal with this optimized version
 const TrapModal = ({ trap, onClose, onSolve }) => {
     const [selectedIdx, setSelectedIdx] = useState(null);
     const [status, setStatus] = useState('idle');
@@ -103,10 +140,10 @@ const TrapModal = ({ trap, onClose, onSolve }) => {
     const handleAnswer = (index) => {
         if (status === 'correct') return;
         setSelectedIdx(index);
+
         if (index === trap.answerIndex) {
             setStatus('correct');
             playSound('ding');
-            setTimeout(() => { onSolve(trap.id); }, 1000);
         } else {
             setStatus('wrong');
             playSound('scratch');
@@ -117,54 +154,97 @@ const TrapModal = ({ trap, onClose, onSolve }) => {
 
     return (
         <div className="focus-overlay">
-            <motion.div 
+            <motion.div
                 className="focus-card"
                 layoutId={`trap-${trap.id}`}
+                // The 'layout' prop is the magic sauce for smooth resizing
+                layout
+                transition={{
+                    layout: { duration: 0.4, type: "spring", stiffness: 100, damping: 15 }
+                }}
                 animate={shake ? { x: [-10, 10, -10, 10, 0] } : {}}
             >
-                <button className="close-btn" onClick={onClose}>×</button>
-                <div style={{display:'flex', alignItems:'center', gap:'15px', marginBottom:'20px'}}>
-                    <span style={{fontSize:'3rem'}}>{trap.icon}</span>
-                    <div>
-                        <h2 style={{margin:0, fontFamily:'Special Elite'}}>{trap.title}</h2>
-                        <div style={{fontFamily:'Patrick Hand', color:'#b91c1c', fontSize:'1.2rem'}}>{trap.label}</div>
+                {/* CLOSE BUTTON */}
+                {status !== 'correct' && (
+                    <button className="close-btn" onClick={onClose} style={{
+                        position: 'absolute', top: '10px', left: '10px', zIndex: 50,
+                        background: '#b91c1c', color: 'white', border: 'none',
+                        width: '30px', height: '30px', borderRadius: '50%', cursor: 'pointer'
+                    }}>×</button>
+                )}
+
+                {/* LEFT SIDE */}
+                <motion.div layout className="quiz-section">
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '15px', marginBottom: '20px' }}>
+                        <span style={{ fontSize: '3rem' }}>{trap.icon}</span>
+                        <div>
+                            <h2 style={{ margin: 0, fontFamily: 'Special Elite' }}>{trap.title}</h2>
+                            <div style={{ fontFamily: 'Patrick Hand', color: '#b91c1c', fontSize: '1.2rem' }}>{trap.label}</div>
+                        </div>
                     </div>
-                </div>
-                <div className="source-text">
-                    <div dangerouslySetInnerHTML={{__html: trap.text}}></div>
-                </div>
-                <p style={{fontFamily:'Special Elite', fontWeight:'bold'}}>Q: {trap.question}</p>
-                <div>
-                    {trap.options.map((opt, i) => {
-                        const isSelected = selectedIdx === i;
-                        const isCorrect = status === 'correct' && isSelected;
-                        const isWrong = status === 'wrong' && isSelected;
-                        return (
-                            <button 
-                                key={i} 
-                                className="option-btn" 
-                                onClick={() => handleAnswer(i)}
-                                style={{
-                                    borderColor: isCorrect ? '#16a34a' : (isWrong ? '#b91c1c' : '#1e293b'),
-                                    backgroundColor: isCorrect ? '#dcfce7' : (isWrong ? '#fee2e2' : 'white'),
-                                    opacity: (status === 'correct' && !isSelected) ? 0.5 : 1
-                                }}
-                            >
-                                <span dangerouslySetInnerHTML={{__html: opt}}></span>
-                                {isCorrect && <span className="feedback-icon icon-check">✓</span>}
-                                {isWrong && <span className="feedback-icon icon-x">✗</span>}
-                                {isWrong && (
-                                    <motion.div 
-                                        className="strikethrough"
-                                        initial={{ width: 0 }}
-                                        animate={{ width: '95%' }}
-                                        transition={{ duration: 0.2 }}
-                                    />
-                                )}
-                            </button>
-                        );
-                    })}
-                </div>
+
+                    <div className="source-text" dangerouslySetInnerHTML={{ __html: trap.text }}></div>
+                    <p style={{ fontFamily: 'Special Elite', fontWeight: 'bold' }}>Q: {trap.question}</p>
+
+                    <div>
+                        {trap.options.map((opt, i) => {
+                            const letter = String.fromCharCode(65 + i);
+                            const isSelected = selectedIdx === i;
+                            const isCorrect = status === 'correct' && i === trap.answerIndex;
+                            const isWrong = status === 'wrong' && isSelected;
+                            return (
+                                <button
+                                    key={i}
+                                    className="option-btn"
+                                    onClick={() => handleAnswer(i)}
+                                    disabled={status === 'correct'}
+                                    style={{
+                                        borderColor: isCorrect ? '#16a34a' : (isWrong ? '#b91c1c' : '#1e293b'),
+                                        backgroundColor: isCorrect ? '#dcfce7' : (isWrong ? '#fee2e2' : 'white'),
+                                        opacity: (status === 'correct' && !isCorrect) ? 0.4 : 1
+                                    }}
+                                >
+                                    <span style={{ fontWeight: 'bold', marginRight: '10px', color: '#b91c1c' }}>
+                                        {letter}.
+                                    </span>
+                                    <span dangerouslySetInnerHTML={{ __html: opt }}></span>
+                                    {isCorrect && <span className="feedback-icon icon-check">✓</span>}
+                                    {isWrong && <span className="feedback-icon icon-x">✗</span>}
+                                </button>
+                            );
+                        })}
+                    </div>
+                </motion.div>
+
+                {/* RIGHT SIDE (Explanation) */}
+                <motion.div
+                    className="explanation-section"
+                    layout
+                    initial={{ width: 0, opacity: 0 }}
+                    animate={{
+                        width: status === 'correct' ? 450 : 0,
+                        opacity: status === 'correct' ? 1 : 0
+                    }}
+                    transition={{
+                        duration: 0.5,
+                        type: "spring",
+                        bounce: 0, // Zero bounce prevents 'wobbly' width calculations
+                        opacity: { duration: 0.3, delay: 0.2 } // Fade in text slightly later
+                    }}
+                >
+                    <div className="explanation-content">
+                        <div className="explanation-header">Investigation Notes</div>
+                        <div dangerouslySetInnerHTML={{ __html: trap.explanation }}></div>
+
+                        <button
+                            className="continue-btn"
+                            onClick={() => onSolve(trap.id)}
+                            style={{ marginTop: '30px' }}
+                        >
+                            CASE CLOSED
+                        </button>
+                    </div>
+                </motion.div>
             </motion.div>
         </div>
     );
@@ -174,13 +254,13 @@ const TrapModal = ({ trap, onClose, onSolve }) => {
 function Materi1() {
     const [focusedTrap, setFocusedTrap] = useState(null);
     const [solvedTraps, setSolvedTraps] = useState([]);
-    
+
     // ANIMATION STATES
     const [victoryPopup, setVictoryPopup] = useState(false); // The Stamp
     const [showCheatSheet, setShowCheatSheet] = useState(false); // The Final Button
-    
+
     // VISUAL STATES
-    const [flashlight, setFlashlight] = useState(true); 
+    const [flashlight, setFlashlight] = useState(true);
     const [mousePos, setMousePos] = useState({ x: '50%', y: '50%' });
     const [hubOpen, setHubOpen] = useState(false);
     const [audioEnabled, setAudioEnabled] = useState(false);
@@ -189,7 +269,6 @@ function Materi1() {
     const audioRef = useRef(null);
 
     useEffect(() => {
-        // Safe check if file exists, fallback to silence if not
         try {
             audioRef.current = new Audio(rainSound);
             audioRef.current.loop = true;
@@ -201,7 +280,7 @@ function Materi1() {
 
     useEffect(() => {
         if (!audioRef.current) return;
-        audioEnabled ? audioRef.current.play().catch(() => {}) : audioRef.current.pause();
+        audioEnabled ? audioRef.current.play().catch(() => { }) : audioRef.current.pause();
     }, [audioEnabled]);
 
     const handleMove = (e) => {
@@ -217,18 +296,25 @@ function Materi1() {
     };
 
     const center = { x: 600, y: 400 };
-    const coords = { 1: { x: 180, y: 120 }, 2: { x: 1020, y: 160 }, 3: { x: 240, y: 640 }, 4: { x: 960, y: 700 } };
+    const coords = {
+        1: { x: 180, y: 120 },
+        2: { x: 1020, y: 160 },
+        3: { x: 240, y: 640 },
+        4: { x: 960, y: 700 },
+        5: { x: 150, y: 350 },
+        6: { x: 1050, y: 360 }
+    };
 
     const handleFocus = (trap) => { playSound('paper'); setFocusedTrap(trap); };
 
     // --- GAME LOGIC ---
     const handleSolve = (id) => {
         setFocusedTrap(null);
-        
+
         if (!solvedTraps.includes(id)) {
             const newSolvedList = [...solvedTraps, id];
             setSolvedTraps(newSolvedList);
-            
+
             // IF ALL PUZZLES SOLVED
             if (newSolvedList.length === traps.length) {
                 // 1. Trigger Victory Sequence
@@ -242,7 +328,7 @@ function Materi1() {
                         setVictoryPopup(false);
                         setShowCheatSheet(true);
                     }, 2500);
-                    
+
                 }, 600);
             }
         }
@@ -252,26 +338,26 @@ function Materi1() {
 
     return (
         <div className="detective-room" onMouseMove={handleMove} onTouchMove={handleMove}>
-            
+
             {/* FLASHLIGHT */}
             {flashlight && (
-                <div 
-                    className="flashlight-layer" 
+                <div
+                    className="flashlight-layer"
                     style={{ '--x': mousePos.x, '--y': mousePos.y }}
                 ></div>
             )}
-            
+
             {/* CONTROLS */}
-            <div style={{position:'fixed', top:'20px', right:'20px', zIndex:2000, display:'flex', flexDirection:'column', gap:'10px'}}>
-                <button 
-                    className={`light-switch ${flashlight ? 'on' : 'off'}`} 
+            <div style={{ position: 'fixed', top: '20px', right: '20px', zIndex: 2000, display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                <button
+                    className={`light-switch ${flashlight ? 'on' : 'off'}`}
                     onClick={() => setFlashlight(!flashlight)}
-                    style={{position:'static'}}
+                    style={{ position: 'static' }}
                 >
                     🔦
                 </button>
-                <button 
-                    className={`audio-switch ${audioEnabled ? 'on' : 'muted'}`} 
+                <button
+                    className={`audio-switch ${audioEnabled ? 'on' : 'muted'}`}
                     onClick={() => setAudioEnabled(!audioEnabled)}
                 >
                     {audioEnabled ? '🔊' : '🔇'}
@@ -281,7 +367,7 @@ function Materi1() {
             <Link to="/" className="nav-back">← DASHBOARD</Link>
 
             <div className="wall-board">
-                
+
                 {/* 0. SCRIBBLES */}
                 {scribbles.map((s, i) => (
                     <div key={i} className={`scribble ${s.class}`}>{s.text}</div>
@@ -295,34 +381,34 @@ function Materi1() {
                 </svg>
 
                 {/* 2. CASE FILE (FOLD-OUT) */}
-                <motion.div 
-                    className="evidence-item hub-file" 
+                <motion.div
+                    className="evidence-item hub-file"
                     onClick={() => setHubOpen(!hubOpen)}
                     onHoverStart={() => setHubOpen(true)}
                     onHoverEnd={() => setHubOpen(false)}
                     initial={{ x: "-50%", y: "-50%", rotate: 2 }}
-                    animate={{ 
-                        x: "-50%", y: "-50%", 
+                    animate={{
+                        x: "-50%", y: "-50%",
                         scale: hubOpen ? 1.05 : 1,
-                        rotate: hubOpen ? 0 : 2 
+                        rotate: hubOpen ? 0 : 2
                     }}
                     transition={{ type: 'spring', stiffness: 300, damping: 20 }}
                 >
-                    <div className="pin" style={{background:'#000'}}></div>
-                    
+                    <div className="pin" style={{ background: '#000' }}></div>
+
                     <div className="hub-header">
-                        <h2 style={{fontFamily:'Special Elite', margin:0, fontSize:'1.5rem'}}>CASE FILE: MINDSET</h2>
-                        <p style={{fontFamily:'Patrick Hand', fontSize:'1.1rem', lineHeight:1.2, margin:'10px 0'}}>
-                            <strong>Strategy:</strong> Stop translating.<br/>
-                            <strong>Method:</strong> Structure Profiling.<br/>
-                            <br/>
-                            <span style={{background:'#e2e8f0', padding:'5px', fontSize:'0.9rem', border:'1px dashed #64748b', display:'inline-block'}}>
+                        <h2 style={{ fontFamily: 'Special Elite', margin: 0, fontSize: '1.5rem' }}>CASE FILE: MINDSET</h2>
+                        <p style={{ fontFamily: 'Patrick Hand', fontSize: '1.1rem', lineHeight: 1.2, margin: '10px 0' }}>
+                            <strong>Strategy:</strong> Stop translating.<br />
+                            <strong>Method:</strong> Structure Profiling.<br />
+                            <br />
+                            <span style={{ background: '#e2e8f0', padding: '5px', fontSize: '0.9rem', border: '1px dashed #64748b', display: 'inline-block' }}>
                                 [Subject] &rarr; [Verb] &rarr; [Object]
                             </span>
                         </p>
-                        <motion.div 
+                        <motion.div
                             animate={{ opacity: hubOpen ? 0 : 1, height: hubOpen ? 0 : 'auto' }}
-                            style={{fontSize:'0.8rem', color:'#64748B', marginTop:'10px'}}
+                            style={{ fontSize: '0.8rem', color: '#64748B', marginTop: '10px' }}
                         >
                             HOVER TO DECODE &rarr;
                         </motion.div>
@@ -330,7 +416,7 @@ function Materi1() {
 
                     <AnimatePresence>
                         {hubOpen && (
-                            <motion.div 
+                            <motion.div
                                 className="hub-secret"
                                 initial={{ height: 0, opacity: 0 }}
                                 animate={{ height: 'auto', opacity: 1 }}
@@ -338,11 +424,11 @@ function Materi1() {
                                 transition={{ duration: 0.4, ease: [0.04, 0.62, 0.23, 0.98] }}
                             >
                                 <div className="reveal-text">
-                                    <h3 style={{margin:'0 0 10px 0', color:'#b91c1c', fontFamily:'Permanent Marker', fontSize:'1.3rem'}}>DECODED:</h3>
-                                    "The <span className="red-marker">Government</span> [S]<br/>
-                                    has <span className="red-marker">Implemented</span> [V]<br/>
+                                    <h3 style={{ margin: '0 0 10px 0', color: '#b91c1c', fontFamily: 'Permanent Marker', fontSize: '1.3rem' }}>DECODED:</h3>
+                                    "The <span className="red-marker">Government</span> [S]<br />
+                                    has <span className="red-marker">Implemented</span> [V]<br />
                                     new <span className="red-marker">Policies</span> [O]."
-                                    <p style={{fontSize:'0.9rem', color:'#64748b', marginTop:'15px', fontStyle:'italic', borderTop:'1px solid #ccc', paddingTop:'10px'}}>
+                                    <p style={{ fontSize: '0.9rem', color: '#64748b', marginTop: '15px', fontStyle: 'italic', borderTop: '1px solid #ccc', paddingTop: '10px' }}>
                                         <strong>Tip:</strong> Ignore the fancy words. Find the Actor + Action.
                                     </p>
                                 </div>
@@ -353,7 +439,7 @@ function Materi1() {
 
                 {/* 3. TRAPS */}
                 {traps.map((trap) => (
-                    <motion.div 
+                    <motion.div
                         key={trap.id}
                         className={`evidence-item ${trap.posClass}`}
                         layoutId={`trap-${trap.id}`}
@@ -377,9 +463,12 @@ function Materi1() {
                         <div className="id-name">AGENT STATUS</div>
                         <div className="id-rank">{rankData.title}</div>
                         <div className="id-progress">
-                            <div className="id-fill" style={{width: `${(solvedTraps.length / 4) * 100}%`}}></div>
+                            <div className="id-fill" style={{ width: `${(solvedTraps.length / 6) * 100}%` }}></div>
+                            <div style={{ fontSize: '0.7rem', marginTop: '5px', color: '#999' }}>
+                                PROGRESS: {solvedTraps.length}/6
+                            </div>
                         </div>
-                        <div style={{fontSize:'0.7rem', marginTop:'5px', color:'#999'}}>
+                        <div style={{ fontSize: '0.7rem', marginTop: '5px', color: '#999' }}>
                             PROGRESS: {solvedTraps.length}/4
                         </div>
                     </div>
@@ -388,10 +477,10 @@ function Materi1() {
                 {/* 5. STAIN */}
                 <div className="coffee-stain"></div>
 
-                {/* --- 6. VICTORY STAMP (Was Missing!) --- */}
+                {/* 6. VICTORY STAMP */}
                 <AnimatePresence>
                     {victoryPopup && (
-                        <motion.div 
+                        <motion.div
                             className="victory-overlay"
                             initial={{ scale: 2, opacity: 0 }}
                             animate={{ scale: 1, opacity: 1 }}
@@ -403,24 +492,24 @@ function Materi1() {
                     )}
                 </AnimatePresence>
 
-                {/* --- 7. FINAL REPORT & NEXT BUTTON --- */}
+                {/* 7. FINAL REPORT & NEXT BUTTON */}
                 <AnimatePresence>
                     {showCheatSheet && (
-                        <motion.div 
+                        <motion.div
                             className="evidence-item final-report"
                             initial={{ y: 500, opacity: 0 }}
                             animate={{ y: 0, opacity: 1 }}
                             transition={{ type: "spring", damping: 20 }}
                         >
-                            <div className="pin" style={{background:'gold'}}></div>
-                            <h3 style={{textAlign:'center', margin:0, fontFamily:'Special Elite'}}>FINAL REPORT</h3>
-                            <ul style={{textAlign:'left', fontFamily:'Patrick Hand', fontSize:'1.1rem', paddingLeft:'20px'}}>
+                            <div className="pin" style={{ background: 'gold' }}></div>
+                            <h3 style={{ textAlign: 'center', margin: 0, fontFamily: 'Special Elite' }}>FINAL REPORT</h3>
+                            <ul style={{ textAlign: 'left', fontFamily: 'Patrick Hand', fontSize: '1.1rem', paddingLeft: '20px' }}>
                                 <li>Verbatim? &rarr; <strong>Find Synonym</strong></li>
                                 <li>Extreme? &rarr; <strong>Find Likely</strong></li>
                                 <li>Context? &rarr; <strong>Check Arrow</strong></li>
                                 <li>Rotten? &rarr; <strong>Check End</strong></li>
                             </ul>
-                            
+
                             {/* THE NEXT BUTTON */}
                             <Link to="/materi/2" className="next-case-btn">
                                 OPEN CASE FILE #02 &rarr;

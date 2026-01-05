@@ -7,55 +7,124 @@ import './Materi2.css';
 const LAB_DATA = [
   { 
     id: 1, 
+    // Lesson: Appositives (The text between commas is NOISE)
     chunks: [
-      { text: "The", type: "normal" }, { text: "rapid", type: "tail" }, { text: "advancement", type: "normal" },
-      { text: ", which has surprised many experts,", type: "noise" },
-      { text: "has", type: "signal" }, { text: "catalyzed", type: "verb" },
-      { text: "the", type: "normal" }, { text: "widespread", type: "tail" }, { text: "emergence.", type: "normal" }
+      { text: "The", type: "normal" }, 
+      { text: "new", type: "tail" }, // Adjective
+      { text: "CEO,", type: "signal" }, // Subject
+      { text: "formerly", type: "noise" }, 
+      { text: "a", type: "noise" }, 
+      { text: "banker,", type: "noise" }, // Appositive Phrase
+      { text: "changed", type: "verb" }, // Verb
+      { text: "the", type: "normal" }, 
+      { text: "entire", type: "tail" }, // Adjective
+      { text: "strategy.", type: "normal" }
     ]
   },
   {
     id: 2, 
+    // Lesson: Prepositional Phrases (Noise often follows the subject)
     chunks: [
-      { text: "Despite", type: "noise" }, { text: "skepticism,", type: "noise" },
-      { text: "the", type: "normal" }, { text: "algorithm", type: "normal" },
-      { text: "is", type: "signal" }, { text: "now", type: "tail" }, { text: "outperforming", type: "verb" },
-      { text: "human", type: "normal" }, { text: "analysts.", type: "normal" }
+      { text: "A", type: "normal" }, 
+      { text: "sudden", type: "tail" }, // Adjective
+      { text: "drop", type: "signal" }, // Subject
+      { text: "in", type: "noise" }, 
+      { text: "global", type: "noise" }, 
+      { text: "temperature", type: "noise" }, // Prepositional Phrase
+      { text: "destroyed", type: "verb" }, // Verb
+      { text: "the", type: "normal" }, 
+      { text: "seasonal", type: "tail" }, // Adjective
+      { text: "crops.", type: "normal" }
     ]
   },
   {
     id: 3, 
+    // Lesson: Introductory Fluff (Don't let the start distract you)
     chunks: [
-      { text: "Urban", type: "normal" }, { text: "planning,", type: "normal" },
-      { text: "often", type: "noise" }, { text: "ignored,", type: "noise" },
-      { text: "remains", type: "signal" }, { text: "a", type: "normal" }, { text: "crucial", type: "tail" },
-      { text: "determinant.", type: "normal" }
+      { text: "According", type: "noise" }, 
+      { text: "to", type: "noise" }, 
+      { text: "recent", type: "noise" }, 
+      { text: "studies,", type: "noise" }, // Intro Phrase
+      { text: "artificial", type: "tail" }, // Adjective
+      { text: "intelligence", type: "signal" }, // Subject
+      { text: "lacks", type: "verb" }, // Verb
+      { text: "true", type: "tail" }, // Adjective
+      { text: "empathy.", type: "normal" }
     ]
   },
   {
     id: 4, 
+    // Lesson: Relative Clauses (The "Which/Who" trap)
     chunks: [
-      { text: "The", type: "normal" }, { text: "ancient", type: "tail" }, { text: "manuscript,", type: "normal" },
-      { text: "found", type: "noise" }, { text: "in", type: "noise" }, { text: "a", type: "noise" }, { text: "cave,", type: "noise" },
-      { text: "has", type: "signal" }, { text: "revealed", type: "verb" },
-      { text: "facts.", type: "normal" }
+      { text: "The", type: "normal" }, 
+      { text: "ancient", type: "tail" }, // Adjective
+      { text: "manuscript,", type: "signal" }, // Subject
+      { text: "which", type: "noise" }, 
+      { text: "nobody", type: "noise" }, 
+      { text: "could", type: "noise" }, 
+      { text: "read,", type: "noise" }, // Relative Clause
+      { text: "contained", type: "verb" }, // Verb
+      { text: "secret", type: "tail" }, // Adjective
+      { text: "maps.", type: "normal" }
     ]
   },
   {
     id: 5, 
+    // Lesson: Adverb Overload (Adverbs are usually Tails)
     chunks: [
-      { text: "Renewable", type: "normal" }, { text: "energy,", type: "normal" },
-      { text: "such", type: "noise" }, { text: "as", type: "noise" }, { text: "solar,", type: "noise" },
-      { text: "is", type: "signal" }, { text: "becoming", type: "verb" },
-      { text: "economically", type: "tail" }, { text: "viable.", type: "normal" }
+      { text: "However,", type: "noise" }, // Connector
+      { text: "the", type: "normal" }, 
+      { text: "primary", type: "tail" }, // Adjective
+      { text: "suspect", type: "signal" }, // Subject
+      { text: "immediately", type: "tail" }, // Adverb
+      { text: "fled", type: "verb" }, // Verb
+      { text: "the", type: "normal" }, 
+      { text: "crime", type: "normal" }, 
+      { text: "scene.", type: "normal" }
     ]
   }
 ];
 
 const CIRCUIT_DATA = [
-  { id: 1, premise: "Government implemented tariffs.", conclusion: "Import prices surged 40%.", correct: "Consequently", options: ["However", "Consequently", "Furthermore", "In contrast"] },
-  { id: 2, premise: "AI offers immense efficiency.", conclusion: "It raises privacy concerns.", correct: "However", options: ["Therefore", "However", "Additionally", "Similarly"] },
-  { id: 3, premise: "She studied every night.", conclusion: "She scored highest in district.", correct: "As a result", options: ["Nevertheless", "As a result", "In spite of this", "Conversely"] }
+  { 
+    id: 1, 
+    premise: "The new quantum processor offers unparallelled calculation speeds.", 
+    // Natural: "Prosesor kuantum jenis baru ini memiliki kecepatan hitung yang belum ada tandingannya."
+    premiseIndo: "Prosesor kuantum jenis baru ini memiliki kecepatan hitung yang belum ada tandingannya.",
+    
+    conclusion: "It requires sub-zero cooling systems that are expensive to maintain.", 
+    // Natural: "Mesin ini butuh sistem pendingin suhu beku yang sangat mahal untuk dirawat."
+    conclusionIndo: "Mesin ini butuh sistem pendingin suhu beku yang sangat mahal untuk dirawat.",
+    
+    correct: "However", 
+    options: ["Therefore", "However", "Furthermore", "Similarly"] 
+  },
+  { 
+    id: 2, 
+    premise: "The server detected a massive unauthorized data breach attempt.", 
+    // Natural: "Server mendeteksi upaya pembobolan data ilegal dalam skala besar."
+    premiseIndo: "Server mendeteksi upaya pembobolan data ilegal dalam skala besar.",
+    
+    conclusion: "It automatically severed all external network connections.", 
+    // Natural: "Sistem langsung memutus semua koneksi jaringan eksternal secara otomatis."
+    conclusionIndo: "Sistem langsung memutus semua koneksi jaringan eksternal secara otomatis.",
+    
+    correct: "Consequently", 
+    options: ["In contrast", "Consequently", "Meanwhile", "Nevertheless"] 
+  },
+  { 
+    id: 3, 
+    premise: "Cryptocurrency decentralizes financial control away from banks.", 
+    // Natural: "Kripto memindahkan kendali keuangan dari bank menjadi sistem terdesentralisasi."
+    premiseIndo: "Kripto memindahkan kendali keuangan dari bank menjadi sistem terdesentralisasi.",
+    
+    conclusion: "It offers anonymity for users concerned about digital privacy.", 
+    // Natural: "Fitur ini menjamin kerahasiaan identitas bagi pengguna yang menjaga privasi digital."
+    conclusionIndo: "Fitur ini menjamin kerahasiaan identitas bagi pengguna yang menjaga privasi digital.",
+    
+    correct: "Moreover", 
+    options: ["Despite this", "As a result", "Moreover", "Conversely"] 
+  }
 ];
 
 const SPECTRUM_DATA = [
@@ -218,7 +287,9 @@ const TapeCircuit = ({ data, onNext }) => {
     <div className="circuit-zine">
       <div className="cardboard-node" style={{transform:'rotate(-1deg)'}}>
         <span>[INPUT]</span>
-        <p>{data.premise}</p>
+        <p className="hover-decode" data-indo={data.premiseIndo}>
+            {data.premise}
+        </p>
       </div>
 
       <div style={{flex:1, display:'flex', flexDirection:'column', alignItems:'center', zIndex:10}}>
@@ -236,7 +307,9 @@ const TapeCircuit = ({ data, onNext }) => {
 
       <div className="cardboard-node" style={{transform:'rotate(1deg)'}}>
         <span>[OUTPUT]</span>
-        <p>{data.conclusion}</p>
+        <p className="hover-decode" data-indo={data.conclusionIndo}>
+            {data.conclusion}
+        </p>
       </div>
 
       <div className={`tape-wire ${isSolved ? 'charged' : ''}`}></div>

@@ -90,11 +90,27 @@
     align-items: center;
 }
 
-/* Trap positions */
+/* Left Column */
 .trap-1 { top: 10%; left: 15%; transform: rotate(-5deg); }
-.trap-2 { top: 15%; right: 15%; transform: rotate(4deg); }
-.trap-3 { bottom: 15%; left: 20%; transform: rotate(3deg); }
-.trap-4 { bottom: 10%; right: 20%; transform: rotate(-3deg); }
+.trap-5 { top: 40%; left: 10%; transform: rotate(3deg); } /* New Middle Left */
+.trap-3 { bottom: 15%; left: 18%; transform: rotate(-4deg); }
+
+/* Right Column */
+.trap-2 { top: 12%; right: 15%; transform: rotate(4deg); }
+.trap-6 { top: 42%; right: 12%; transform: rotate(-2deg); } /* New Middle Right */
+.trap-4 { bottom: 12%; right: 20%; transform: rotate(5deg); }
+
+@media (max-width: 800px) {
+    .trap-1, .trap-2, .trap-3, .trap-4, .trap-5, .trap-6 {
+        position: relative !important; 
+        top: auto !important; 
+        left: auto !important; 
+        right: auto !important; 
+        bottom: auto !important;
+        transform: rotate(0deg) !important; 
+        margin-bottom: 20px;
+    }
+}
 
 .evidence-item:not(.hub-file):hover {
     z-index: 20;
@@ -196,17 +212,54 @@
 
 .focus-card {
     background: #f8fafc;
-    width: 90%; max-width: 600px; padding: 40px; border-radius: 2px; position: relative;
+    /* Let React control the size */
+    width: auto; 
+    height: auto;
+    
+    /* Flexbox setup */
+    display: flex;
+    flex-direction: row;
+    overflow: hidden;
+    
+    padding: 0;
+    border-radius: 4px;
     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
 }
 
+.quiz-section {
+    width: 500px; /* Fixed width */
+    flex-shrink: 0;
+    padding: 40px;
+    background: #f8fafc;
+    z-index: 2;
+    position: relative;
+}
+
+.explanation-section {
+    width: 0; 
+    flex-shrink: 0;
+    background: #fef3c7;
+    border-left: 2px dashed #b45309;
+    overflow: hidden;
+}
+
 .close-btn {
-    position: absolute; top: -15px; right: -15px;
-    background: #b91c1c; color: white; border: none; 
-    width: 40px; height: 40px; border-radius: 50%;
-    font-size: 1.5rem; cursor: pointer;
-    display: flex; align-items: center; justify-content: center;
-    box-shadow: 0 5px 10px rgba(0,0,0,0.5);
+    position: absolute; 
+    top: 10px; 
+    left: 10px; /* Moved to LEFT so it doesn't jump when right side opens */
+    background: #b91c1c; 
+    color: white; 
+    border: none; 
+    width: 30px; 
+    height: 30px; 
+    border-radius: 50%;
+    font-size: 1.2rem; 
+    cursor: pointer;
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    z-index: 50; 
 }
 
 /* 6. QUIZ UI */
@@ -267,17 +320,16 @@
 }
 
 /* MOBILE OPTIMIZATION */
-@media (max-width: 800px) {
-    .detective-room {
-        position: relative; /* Allow scrolling */
-        display: block; 
-        height: auto; 
-        min-height: 100vh;
+@media (max-width: 950px) {
+    .focus-card {
+        flex-direction: column;
+        width: 90vw;
+        max-height: 90vh;
         overflow-y: auto;
-        padding-bottom: 50px;
-        background-color: #1a120b;
-        touch-action: auto;
     }
+    .quiz-section { width: 100%; }
+    .explanation-section { width: 100% !important; border-left: none; border-top: 2px dashed #b45309; }
+    .explanation-content { width: 100%;}   
     
     .wall-board {
         width: 100%; height: auto; display: flex; flex-direction: column; align-items: center; gap: 30px; padding-top: 80px; transform: none;
@@ -416,4 +468,60 @@
     color: white !important;
     transform: translateY(-2px);
     box-shadow: 4px 4px 0px rgba(0,0,0,0.2);
+}
+
+/* New Trap Positions to fill the gaps */
+.trap-5 { top: 40%; left: 5%; transform: rotate(2deg); } /* Middle Left */
+.trap-6 { top: 40%; right: 5%; transform: rotate(-2deg); } /* Middle Right */
+
+/* --- NEW: EXPLANATION REVEAL --- */
+.explanation-box {
+    background: #fef3c7; /* Light Manila Folder color */
+    border: 2px dashed #b45309;
+    padding: 15px;
+    margin-top: 20px;
+    font-family: var(--font-hand);
+    font-size: 1.2rem;
+    color: #78350f;
+    position: relative;
+    overflow: hidden;
+}
+
+.explanation-header {
+    font-family: var(--font-stamp);
+    color: #b91c1c;
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    transform: rotate(-2deg);
+}
+
+.continue-btn {
+    display: block;
+    width: 100%;
+    margin-top: 15px;
+    padding: 10px;
+    background: #1e293b;
+    color: white;
+    font-family: var(--font-type);
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    text-transform: uppercase;
+    transition: 0.2s;
+}
+
+.continue-btn:hover {
+    background: #16a34a; /* Green on hover */
+    transform: scale(1.02);
+}
+
+.explanation-content {
+    width: 400px; 
+    padding: 40px;
+    font-family: var(--font-hand);
+    font-size: 1.2rem;
+    color: #78350f;
+    /* Prevent text wrapping changes during animation */
+    white-space: normal;
 }
