@@ -1,8 +1,10 @@
 // src/pages/Home.jsx
 import { Link } from 'react-router-dom';
+import { useState } from 'react';
 import './Home.css';
 
 function Home() {
+  const [isSpaceMode, setIsSpaceMode] = useState(false);
 
   // --- Flashlight Logic for Card 1 ---
   const handleFlashlightMove = (e) => {
@@ -17,7 +19,7 @@ function Home() {
   };
 
   return (
-    <div className="bento-container">
+    <div className={`bento-container ${isSpaceMode ? 'space-mode-active' : ''}`}>
       <div className="bento-grid">
 
         {/* ... [HERO, GAP, DIAGNOSTICS SECTIONS KEEP SAME] ... */}
@@ -217,16 +219,16 @@ function Home() {
             </div>
           </Link>
 
-          <Link to="/materi/5" className="mod-card mc-5">
-            <span className="mod-num">05</span>
-            <div style={{ zIndex: 2, position: 'relative' }}>
-              <div className="mc-5-bg"></div>
-              <h3>NEURAL DECODER</h3>
-              <p>Visualizing logic connections.</p>
-              <div style={{ display: 'flex', gap: '5px', marginTop: '10px' }}>
-                <span style={{ fontSize: '0.6rem', border: '1px solid #3b82f6', color: '#3b82f6', padding: '2px 5px' }}>NET_ANALYSIS</span>
-              </div>
-            </div>
+          {/* --- MATERI 5: NEURAL DECODER --- */}
+          <Link
+            to="/materi/5"
+            className="mod-card mc-5"
+            onMouseEnter={() => setIsSpaceMode(true)}
+            onMouseLeave={() => setIsSpaceMode(false)}
+          >
+            <div className="mc-5-bg"></div>
+            <h3>NEURAL DECODER</h3>
+            <p>Pattern Recognition & Inference</p>
           </Link>
 
           <Link to="/materi/6" className="mod-card mc-6">

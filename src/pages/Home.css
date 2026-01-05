@@ -29,6 +29,7 @@
     color: black;
     display: flex;
     justify-content: center;
+    transition: background 0.8 ease-in-out;
 }
 
 .bento-container::before {
@@ -988,4 +989,78 @@
     .area-mods { grid-template-columns: 1fr 1fr; } /* Stack modules on mobile */
     .mc-5 { grid-column: 1 / -1; }
     .mc-6, .mc-final { grid-column: 1 / -1; }
+}
+
+/* ========================================= */
+/* === DEEP SPACE BACKGROUND ANIMATION === */
+/* ========================================= */
+
+/* 1. DEFINE THE ANIMATION (Drifting downwards) */
+@keyframes space-drift {
+    from { 
+        background-position: 
+            0 0, 0 0, 
+            0 0, 0 0, 
+            0 0; 
+    }
+    to { 
+        background-position: 
+            0 1000px, 0 1200px, /* Dust moves fast */
+            0 600px,  0 800px,  /* Medium moves medium */
+            0 200px;            /* Big moves slow */
+    }
+}
+
+/* 2. THE HIDDEN SPACE LAYER */
+/* Update the .bento-container::after block */
+.bento-container::after {
+    content: '';
+    position: fixed; 
+    inset: 0;
+    
+    /* Z-Index: Sits in front of white background, behind content */
+    z-index: 0; 
+    pointer-events: none; 
+
+    /* 1. The Void */
+    background-color: #020617;
+
+    /* 2. THE STARS (3 Dense Layers) */
+    background-image: 
+        /* Layer 1: The "Star Dust" (Very tiny, very dense) */
+        radial-gradient(1px 1px at 10px 10px, white, transparent),
+        radial-gradient(1px 1px at 20px 20px, white, transparent),
+        
+        /* Layer 2: Medium Stars (Brighter) */
+        radial-gradient(2px 2px at 40px 40px, #ffffff, transparent),
+        radial-gradient(2px 2px at 100px 50px, #ffffff, transparent),
+        
+        /* Layer 3: Big Close Stars */
+        radial-gradient(3px 3px at 50% 50%, #ffffff, transparent);
+
+    /* 3. DENSITY CONTROL (Smaller numbers = More stars) */
+    background-size: 
+        100px 100px,  /* Dust repeats every 100px (Very Dense) */
+        100px 100px,  
+        250px 250px,  /* Medium repeats every 250px */
+        250px 250px,
+        500px 500px;  /* Big stars repeat every 500px */
+
+    /* 4. ANIMATION */
+    animation: space-drift 60s linear infinite;
+
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+
+/* ADD THIS NEW RULE to ensure your cards sit ON TOP of the stars */
+.bento-grid {
+    position: relative;
+    z-index: 2; /* Content sits above the stars (z-index 0) */
+}
+
+/* 3. ACTIVATE ON HOVER */
+/* When React adds this class, simply fade the space layer to full opacity */
+.bento-container.space-mode-active::after {
+    opacity: 1;
 }
