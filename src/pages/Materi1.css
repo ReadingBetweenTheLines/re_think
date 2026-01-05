@@ -389,3 +389,31 @@
 @media (max-width: 800px) {
     .case-closed-stamp { font-size: 4rem; border-width: 6px; }
 }
+
+/* --- FIX: MATERI 1 QUIZ OPTIONS --- */
+/* Forces the quiz buttons to be high-contrast "Typewriter" style */
+
+.option-btn, .quiz-option { 
+    /* 1. Force Black Text */
+    color: black !important; 
+    
+    /* 2. Paper Background */
+    background-color: white !important;
+    
+    /* 3. Detective Theme Border */
+    border: 2px solid black !important;
+    font-family: 'Courier Prime', 'Courier New', monospace; /* Typewriter font */
+    font-weight: bold;
+    
+    /* 4. Make sure it looks clickable */
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+/* Hover Effect: Invert colors (Black background, White text) */
+.option-btn:hover, .quiz-option:hover {
+    background-color: black !important;
+    color: white !important;
+    transform: translateY(-2px);
+    box-shadow: 4px 4px 0px rgba(0,0,0,0.2);
+}
