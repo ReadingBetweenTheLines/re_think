@@ -113,7 +113,7 @@ function Home() {
                 VISUAL<br />HACKING
               </h3>
               <p>
-                Ransom note tactics for<br />decoding hard vocabulary.
+                Ransom note tactics for decoding hard vocabulary.
               </p>
 
               {/* The "Stickers" */}
@@ -144,8 +144,8 @@ function Home() {
             <div className="mc-3-content">
               {/* Screen Top */}
               <div style={{ textAlign: 'center', marginTop: '10px' }}>
-                <h3>LOGIC<br />OS 2.0</h3>
-                <p>System Ready.<br />Drill Fallacies.</p>
+                <h3>LOGIC<br />GATES</h3>
+                <p>BINARY SYSTEMS</p>
               </div>
 
               {/* The Dock */}
@@ -156,6 +156,18 @@ function Home() {
               </div>
             </div>
             <span className="mod-num">03</span>
+            <div className="call-overlay">
+              <div className="caller-info">
+                <div className="avatar">?</div>
+                <span className="name">UNKNOWN</span>
+                <span className="status">Incoming Call...</span>
+              </div>
+
+              <div className="call-actions">
+                <div className="btn-decline"></div>
+                <div className="btn-accept"></div>
+              </div>
+            </div>
           </Link>
 
           {/* --- MODULE 4: MESSY/ADHD THEME --- */}
@@ -208,6 +220,7 @@ function Home() {
           <Link to="/materi/5" className="mod-card mc-5">
             <span className="mod-num">05</span>
             <div style={{ zIndex: 2, position: 'relative' }}>
+              <div className="mc-5-bg"></div>
               <h3>NEURAL DECODER</h3>
               <p>Visualizing logic connections.</p>
               <div style={{ display: 'flex', gap: '5px', marginTop: '10px' }}>

@@ -471,6 +471,124 @@
     animation: digitalPulse 3s infinite alternate;
 }
 
+/* --- THE CALL SCREEN OVERLAY --- */
+.call-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.95); /* Dark overlay */
+    backdrop-filter: blur(5px);
+    z-index: 10;
+    
+    /* Layout */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 30px 20px;
+    align-items: center;
+    
+    /* Hidden by default */
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    pointer-events: none; /* Let clicks pass through to the link */
+}
+
+/* --- CALLER INFO (Top) --- */
+.caller-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.caller-info .avatar {
+    width: 60px; height: 60px;
+    background: #cbd5e1;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.5rem; font-weight: bold; color: #334155;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+    animation: pulse-avatar 2s infinite;
+}
+
+.caller-info .name {
+    font-family: 'Work Sans', sans-serif;
+    font-size: 1.2rem; font-weight: 700;
+    color: white;
+}
+
+.caller-info .status {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.8rem;
+    color: #94a3b8;
+    animation: blink 1.5s infinite;
+}
+
+/* --- ACTIONS (Bottom Buttons) --- */
+.call-actions {
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+}
+
+.btn-accept, .btn-decline {
+    width: 50px; height: 50px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+}
+
+/* Red Button */
+.btn-decline {
+    background: #ef4444;
+    box-shadow: 0 4px 10px rgba(239, 68, 68, 0.4);
+}
+/* Phone Icon (CSS Shape) */
+.btn-decline::before {
+    content: ''; width: 20px; height: 6px; background: white; border-radius: 2px;
+}
+
+/* Green Button */
+.btn-accept {
+    background: #22c55e;
+    box-shadow: 0 4px 10px rgba(34, 197, 94, 0.4);
+    animation: pulse-green 1.5s infinite;
+}
+/* Phone Icon (CSS Shape) */
+.btn-accept::before {
+    content: ''; width: 20px; height: 10px; 
+    border-bottom: 3px solid white; border-left: 3px solid white; border-right: 3px solid white;
+    border-radius: 0 0 10px 10px; transform: translateY(-2px);
+}
+
+/* --- HOVER TRIGGER --- */
+.mc-3:hover .call-overlay {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Hide the lock screen content when calling to reduce clutter */
+.mc-3:hover .mc-3-content, 
+.mc-3:hover .mod-num {
+    opacity: 0.2; /* Dim the background stuff */
+    filter: blur(2px);
+}
+
+/* --- ANIMATIONS --- */
+@keyframes pulse-avatar {
+    0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.4); }
+    70% { transform: scale(1.05); box-shadow: 0 0 0 15px rgba(255, 255, 255, 0); }
+    100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); }
+}
+
+@keyframes pulse-green {
+    0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7); }
+    70% { transform: scale(1.1); box-shadow: 0 0 0 15px rgba(34, 197, 94, 0); }
+    100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+}
+
+@keyframes blink { 50% { opacity: 0.5; } }  
+
 @keyframes digitalPulse {
     0% { opacity: 0.15; text-shadow: 0 0 30px rgba(56, 189, 248, 0.8); }
     100% { opacity: 0.25; text-shadow: 0 0 50px rgba(56, 189, 248, 1); }
@@ -613,97 +731,254 @@
     z-index: 0;
 }
 
-/* --- MODULE 5: NEURAL DECODER (Space Theme) --- */
+/* --- MODULE 5: NEURAL DECODER (Final Supernova) --- */
 .mc-5 {
+    /* 1. Layout */
     grid-column: 1 / 3;
     min-height: 180px;
     
-    /* Keep your existing styling below... */
-    background: #000;
-    border: 1px solid #333;
+    /* 2. Base State */
     position: relative;
-    overflow: hidden;
+    overflow: hidden; /* Keeps rays inside */
+    border-radius: 12px;
+    background: #030712; 
+    
+    /* 3. The "Halo" (Normal State) */
+    /* A soft, breathing purple rim */
+    box-shadow: 
+        inset 0 0 20px rgba(168, 85, 247, 0.5),
+        0 0 0 1px rgba(168, 85, 247, 0.2);
+    
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    padding: 20px;
+    justify-content: center;
+    padding: 30px;
+    z-index: 1;
+    
+    /* Smooth transition for the "Dimming" effect */
+    transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.3s;
 }
 
-/* Space Grid Background */
+/* --- THE RAYS (Normal State) --- */
 .mc-5::before {
     content: '';
-    position: absolute; inset: 0;
-    background-image: 
-        linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
-    background-size: 30px 30px;
-    opacity: 0.5;
-    z-index: 0;
+    position: absolute;
+    top: -50%; left: -50%;
+    width: 200%; height: 200%;
+    
+    /* The Light Rays */
+    background: conic-gradient(
+        from 0deg at 50% 50%,
+        transparent 0%,
+        rgba(168, 85, 247, 0.1) 10%, 
+        rgba(6, 182, 212, 0.5) 15%, /* Cyan Ray */
+        rgba(168, 85, 247, 0.1) 20%, 
+        transparent 40%,
+        rgba(168, 85, 247, 0.1) 60%,
+        rgba(6, 182, 212, 0.5) 65%, /* Cyan Ray */
+        rgba(168, 85, 247, 0.1) 70%,
+        transparent 100%
+    );
+    
+    /* Normal Speed */
+    animation: internal-spin 10s linear infinite;
+    z-index: -2;
+    opacity: 0.6;
+    transition: all 0.5s ease-in; /* Smooth rev-up for the explosion */
 }
 
-/* Glowing Orb */
-.mc-5::after {
-    content: '';
-    position: absolute; bottom: -50px; right: -50px;
-    width: 150px; height: 150px;
-    background: radial-gradient(circle, rgba(0, 243, 255, 0.4) 0%, transparent 70%);
-    filter: blur(20px);
-    z-index: 0;
-    transition: 0.5s;
+@keyframes internal-spin {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
 }
 
+/* --- TEXT CONTENT --- */
 .mc-5 h3 {
     font-family: 'Share Tech Mono', monospace;
-    color: #3b82f6; /* Blue/Purple */
-    position: relative; z-index: 2;
-    text-transform: uppercase;
-    letter-spacing: 1px;
+    font-size: 2.5rem;
+    color: #fff;
+    text-shadow: 0 0 10px rgba(168, 85, 247, 0.6);
+    margin: 0; z-index: 2;
+    transition: text-shadow 0.3s;
 }
 
-.mc-5 p { color: #94a3b8; position: relative; z-index: 2; }
+.mc-5 p {
+    font-family: 'Space Mono', monospace;
+    color: #94a3b8;
+    z-index: 2; margin-top: 10px;
+}
+
+/* --- DARK OVERLAY (Readability) --- */
+.mc-5::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(circle, rgba(3,7,18,0.5) 0%, rgba(3,7,18,0.95) 100%);
+    z-index: -1;
+}
+
+/* ========================================= */
+/* === THE SUPERNOVA STATE (HOVER) === */
+/* ========================================= */
 
 .mc-5:hover {
-    border-color: #00f3ff;
-    box-shadow: 0 0 20px rgba(0, 243, 255, 0.2);
-    transform: translateY(-5px); /* Space float effect */
+    z-index: 50; /* Bring to front above other cards */
+    transform: scale(1.02); /* Slight pop */
+    
+    /* 1. DARK SURROUNDINGS + BRIGHT HALO */
+    box-shadow: 
+        /* The "Darkness" around the card (Massive black shadow) */
+        0 0 100px 50px rgba(0, 0, 0, 0.9), 
+        
+        /* The Blinding White/Cyan Inner Halo */
+        inset 0 0 30px rgba(6, 182, 212, 0.8),
+        
+        /* The Outer Glow */
+        0 0 20px rgba(168, 85, 247, 1);
+}
+
+.mc-5:hover::before {
+    /* 2. THE EXPLOSION */
+    opacity: 1; /* Maximum Brightness */
+    
+    /* Switch to "Warp Speed" - Spin extremely fast */
+    animation-duration: 1.5s; 
+    
+    /* Zoom in to simulate the rays exploding outward */
+    transform: scale(1.5); 
+    
+    /* Change blend mode to make colors burn */
+    mix-blend-mode: hard-light;
 }
 
 .mc-5:hover h3 {
-    color: #00f3ff;
-    text-shadow: 0 0 10px rgba(0, 243, 255, 0.5);
+    /* Text becomes white-hot */
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.8), 0 0 40px rgba(6, 182, 212, 0.8);
 }
-
-/* --- MODULE 6: FINAL BOSS (Danger Theme) --- */
-.mc-6 {
-    grid-column: 3 / 5;
+/* --- MODULE 6: FINAL BOSS (Reactor Meltdown Theme) --- */
+.mc-6, .mc-final {
+    /* 1. Layout */
+    grid-column: 3 / 5; /* Spans the right side (cols 3 & 4) */
     min-height: 180px;
     
-    /* Keep existing styling... */
-    background: #09090b;
-    border: 4px solid #ef4444; /* The Red Border */
+    /* 2. Base State: "Containment Field" */
     position: relative;
     overflow: hidden;
+    background: #0f0505; /* Deepest Red-Black */
+    border: 1px solid #450a0a; /* Dark Red Border */
+    
+    /* The "Pulse" - like a sleeping beast */
+    box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.8);
+    animation: breathing-danger 4s ease-in-out infinite;
+
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
+    padding: 20px;
+    z-index: 1;
 }
 
-.mc-6 h3 { 
-    color: var(--highlight-danger); 
-    font-family: 'Permanent Marker', cursive;
+@keyframes breathing-danger {
+    0%, 100% { border-color: #450a0a; box-shadow: 0 0 10px rgba(220, 38, 38, 0.1); }
+    50%      { border-color: #7f1d1d; box-shadow: 0 0 25px rgba(220, 38, 38, 0.3); }
 }
 
-.mc-6:hover { 
-    background: var(--highlight-danger); 
-    color: white; 
-    border-color: black;
-    transform: translate(2px, 2px); /* Standard bento click */
-    box-shadow: 2px 2px 0px 0px black;
+/* --- THE HAZARD STRIPES (Background) --- */
+.mc-6::before {
+    content: '';
+    position: absolute;
+    /* Oversized to allow scrolling */
+    top: -50%; left: -50%; width: 200%; height: 200%;
+    
+    /* The Warning Tape Pattern */
+    background: repeating-linear-gradient(
+        -45deg,
+        transparent, 
+        transparent 20px,
+        rgba(220, 38, 38, 0.05) 20px,  /* Faint Red Stripe */
+        rgba(220, 38, 38, 0.05) 40px
+    );
+    
+    /* Slow, ominous scrolling */
+    animation: hazard-scroll 20s linear infinite;
+    z-index: -1;
+    pointer-events: none;
 }
 
-.mc-6:hover h3, .mc-6:hover p { color: white; }
+@keyframes hazard-scroll {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(50px); }
+}
+
+/* --- TEXT CONTENT --- */
+.mc-6 h3 {
+    font-family: 'Permanent Marker', cursive; /* Rough, handwritten look */
+    font-size: 2.5rem;
+    color: #ef4444; /* Base Red */
+    margin: 0;
+    line-height: 1;
+    transform: rotate(-2deg); /* Unsettling tilt */
+    text-shadow: 4px 4px 0px #000;
+    z-index: 2;
+}
+
+.mc-6 p {
+    font-family: 'Space Mono', monospace;
+    color: #fca5a5; /* Light Red */
+    background: #450a0a; /* Dark Red Highlight */
+    padding: 2px 8px;
+    margin-top: 10px;
+    font-size: 0.9rem;
+    border: 1px dashed #ef4444;
+    transform: rotate(1deg); /* Counter-tilt */
+}
+
+/* --- THE "MELTDOWN" STATE (HOVER) --- */
+.mc-6:hover {
+    /* 1. Border Flashing */
+    border-color: #ff0000;
+    
+    /* 2. Panic Shadows */
+    box-shadow: 
+        0 0 0 4px #000, /* Inner separation */
+        0 0 0 8px #ff0000, /* Hard Red Outline */
+        0 0 60px rgba(255, 0, 0, 0.6); /* Massive Red Glow */
+        
+    /* Shake Animation */
+    animation: none; /* Stop breathing */
+    transform: scale(1.02);
+}
+
+.mc-6:hover::before {
+    /* 3. Stripes go fast and bright */
+    background: repeating-linear-gradient(
+        -45deg,
+        transparent, 
+        transparent 20px,
+        rgba(255, 0, 0, 0.2) 20px,  /* Bright Red Stripe */
+        rgba(255, 0, 0, 0.2) 40px
+    );
+    animation: hazard-scroll 2s linear infinite; /* 10x Speed */
+}
+
+.mc-6:hover h3 {
+    color: #fff;
+    text-shadow: 
+        0 0 10px #ff0000,
+        0 0 20px #ff0000,
+        4px 4px 0px #000;
+    animation: glitch-text 0.2s infinite;
+}
+
+/* Text Glitch Effect */
+@keyframes glitch-text {
+    0% { transform: translate(0) rotate(-2deg); }
+    25% { transform: translate(-2px, 1px) rotate(-2deg); }
+    50% { transform: translate(2px, -1px) rotate(-2deg); }
+    75% { transform: translate(-1px, 2px) rotate(-2deg); }
+    100% { transform: translate(0) rotate(-2deg); }
+}
 
 /* Responsive */
 @media (max-width: 900px) {
@@ -712,5 +987,5 @@
     .hero-title { font-size: 2.5rem; }
     .area-mods { grid-template-columns: 1fr 1fr; } /* Stack modules on mobile */
     .mc-5 { grid-column: 1 / -1; }
-    .mc-6 { grid-column: 1 / -1; }
+    .mc-6, .mc-final { grid-column: 1 / -1; }
 }
