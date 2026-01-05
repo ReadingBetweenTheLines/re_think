@@ -22,13 +22,38 @@
 .bento-container {
     min-height: 100vh;
     background-color: var(--bg-color);
-    background-image: linear-gradient(#e5e5e5 1px, transparent 1px), linear-gradient(90deg, #e5e5e5 1px, transparent 1px);
+    overflow-x: hidden;
     background-size: 20px 20px;
     padding: 40px 20px;
     font-family: 'Space Mono', monospace;
     color: black;
     display: flex;
     justify-content: center;
+}
+
+.bento-container::before {
+    content: '';
+    position: fixed; /* FIXED POSITION = NO SCROLL LAG */
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    z-index: -1; /* Send to back */
+    
+    /* The Pattern */
+    background-color: var(--bg-color);
+    background-image: 
+        linear-gradient(#e5e5e5 1px, transparent 1px), 
+        linear-gradient(90deg, #e5e5e5 1px, transparent 1px);
+    background-size: 20px 20px;
+    
+    /* Performance trick */
+    will-change: transform;
+    pointer-events: none;
+}
+/* --- PERFORMANCE FIX FOR ROTATED TEXT --- */
+.gap-sticker, .hero-desc, .nav-scrap, .mod-num {
+    /* Stop the browser from recalculating anti-aliasing during scroll */
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    transform: translateZ(0) rotate(-2deg); /* Force GPU layer */
 }
 
 .bento-grid {
@@ -67,7 +92,12 @@
     line-height: 0.9;
     text-transform: uppercase;
     margin: 0;
+    
+    /* OPTIMIZED SHADOW: Removed the blur radius (0px) completely */
     text-shadow: 2px 2px 0px white, 4px 4px 0px black;
+    
+    /* Performance */
+    will-change: transform;
 }
 
 .hero-desc {
@@ -80,7 +110,14 @@
 }
 
 /* GAP ANALYSIS */
-.area-gap { grid-row: span 2; }
+.area-gap { 
+    grid-row: span 2;
+    
+    /* ADD THESE TO FIX THE DARKNESS */
+    background-color: #ffffff; /* Force White Paper Look */
+    color: #000000;            /* Force Black Text */
+    border: 3px solid black;   /* Ensure border matches theme */
+}
 .gap-sticker {
     background: black; color: white; padding: 5px 10px; font-weight: bold;
     transform: rotate(-2deg); display: inline-block; margin-bottom: 15px;
@@ -105,7 +142,7 @@
     grid-column: 1 / 3;
     display: grid;
     /* Responsive Grid: min 200px width cards */
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
+    grid-template-columns: 1fr 1fr 1fr 1fr; 
     gap: 20px;
 }
 
@@ -120,10 +157,11 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    transition: 0.1s;
+    transition: transform 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     position: relative;
     min-height: 180px;
     overflow: hidden; /* Important for glow effects */
+    will-change: transform;
 }
 
 .mod-card:hover {
@@ -311,8 +349,9 @@
     border-radius: 20px; /* Rounded corners like a modern phone */
     position: relative;
     overflow: hidden;
-    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    transition: transform 0.2s ease-out, box-shadow 0.2s ease-out, border-color 0.2s;
     box-shadow: 5px 5px 0px #000;
+    will-change: transform, box-shadow;
 }
 
 /* 1. STATUS BAR (Top) */
@@ -369,8 +408,8 @@
 
 /* 4. THE DOCK (Bottom App Bar) */
 .mc-3-dock {
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(5px);
+    background: rgba(15, 23, 42, 0.8);
+    
     border-radius: 16px;
     padding: 10px;
     margin-top: auto; /* Push to bottom */
@@ -414,8 +453,45 @@
     transform: translateY(-3px); /* Icons bounce up */
 }
 
+/* KEEP THIS */
 .mc-3 .mod-num {
-    opacity: 0; /* Hide number, doesn't fit phone aesthetic */
+    opacity: 0.15; 
+    font-family: 'Space Mono', monospace;
+    font-size: 5rem;
+    font-weight: 700;
+    color: #38bdf8;
+    position: absolute;
+    top: 10px;
+    right: 5px;
+    bottom: auto;
+    letter-spacing: -5px;
+    z-index: 1;
+    text-shadow: 0 0 30px rgba(56, 189, 248, 0.8);
+    pointer-events: none;
+    animation: digitalPulse 3s infinite alternate;
+}
+
+@keyframes digitalPulse {
+    0% { opacity: 0.15; text-shadow: 0 0 30px rgba(56, 189, 248, 0.8); }
+    100% { opacity: 0.25; text-shadow: 0 0 50px rgba(56, 189, 248, 1); }
+}
+
+/* --- HOVER EFFECT: NEON ACTIVATION --- */
+.mc-3:hover .mod-num {
+    opacity: 1; /* Fully visible */
+    color: #07eefa; /* White center (hot plasma) */
+    
+    /* Layered shadows create the neon tube effect */
+    text-shadow: 
+        0 0 5px  #fff,       /* White Core Spill */
+        0 0 10px #00ffff,    /* Inner Electric Blue */
+        0 0 20px #136363,    /* Middle Glow */
+        0 0 40px #a0eff9,    /* Outer Glow */
+        0 0 80px #00ffff;    /* Distant Haze */
+        
+    transition: all 0.1s ease-in; /* Quick "flicker on" speed */
+    transform: translateZ(0) scale(1.05);
+    will-change: opacity, text-shadow;
 }
 
 .mod-num {
@@ -539,9 +615,18 @@
 
 /* --- MODULE 5: NEURAL DECODER (Space Theme) --- */
 .mc-5 {
-    background-color: var(--highlight-space);
-    border: 3px solid #334155; /* Slate border */
-    color: #e4e4e7;
+    grid-column: 1 / 3;
+    min-height: 180px;
+    
+    /* Keep your existing styling below... */
+    background: #000;
+    border: 1px solid #333;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px;
 }
 
 /* Space Grid Background */
@@ -590,8 +675,19 @@
 
 /* --- MODULE 6: FINAL BOSS (Danger Theme) --- */
 .mc-6 {
-    background: white;
-    border-color: var(--highlight-danger);
+    grid-column: 3 / 5;
+    min-height: 180px;
+    
+    /* Keep existing styling... */
+    background: #09090b;
+    border: 4px solid #ef4444; /* The Red Border */
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
 }
 
 .mc-6 h3 { 
@@ -610,9 +706,11 @@
 .mc-6:hover h3, .mc-6:hover p { color: white; }
 
 /* Responsive */
-@media (max-width: 800px) {
+@media (max-width: 900px) {
     .bento-grid { grid-template-columns: 1fr; }
     .area-hero, .area-gap, .area-mods { grid-column: 1 / 2; }
     .hero-title { font-size: 2.5rem; }
-    .area-mods { grid-template-columns: 1fr; } /* Stack modules on mobile */
+    .area-mods { grid-template-columns: 1fr 1fr; } /* Stack modules on mobile */
+    .mc-5 { grid-column: 1 / -1; }
+    .mc-6 { grid-column: 1 / -1; }
 }

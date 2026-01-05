@@ -155,6 +155,7 @@ function Home() {
                 <div className="app-icon green" title="True">T</div>
               </div>
             </div>
+            <span className="mod-num">03</span>
           </Link>
 
           {/* --- MODULE 4: MESSY/ADHD THEME --- */}
