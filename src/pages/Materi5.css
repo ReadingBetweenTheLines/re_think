@@ -249,12 +249,20 @@
 
 /* --- 6. DATA PANEL --- */
 .data-panel {
-  position: absolute; right: -500px; top: 0; width: 450px; height: 100%;
-  background: var(--panel-bg); border-left: 1px solid rgba(255,255,255,0.1);
-  backdrop-filter: blur(15px); padding: 0;
+  position: absolute; 
+  right: -700px; /* Increased from -500px to hide the wider panel */
+  top: 0; 
+  width: 600px;  /* Increased from 450px to make it wider */
+  height: 100%;
+  background: var(--panel-bg); 
+  border-left: 1px solid rgba(255,255,255,0.1);
+  backdrop-filter: blur(15px); 
+  padding: 0;
   transition: right 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
   box-shadow: -10px 0 50px rgba(0,0,0,0.8);
-  display: flex; flex-direction: column; z-index: 100;
+  display: flex; 
+  flex-direction: column; 
+  z-index: 100;
 }
 
 .data-panel.visible { right: 0; }
@@ -325,31 +333,173 @@
 .blink { animation: blink 1s infinite; }
 @keyframes blink { 50% { opacity: 0; } }
 
-/* --- 9. MOBILE RESPONSIVENESS --- */
+/* --- HUB SPECIFIC LAYOUT (THE COMMAND CENTER) --- */
+.hub-dashboard {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  height: 100%;
+  padding: 30px;
+  background: radial-gradient(circle at top right, rgba(245, 158, 11, 0.1), transparent 70%);
+  color: var(--text-main);
+  font-family: 'Share Tech Mono';
+}
+
+.hub-header {
+  border-bottom: 2px solid var(--hub-color);
+  padding-bottom: 15px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.hub-title {
+  font-size: 2.5rem;
+  color: var(--hub-color);
+  margin: 0;
+  text-shadow: 0 0 15px rgba(245, 158, 11, 0.4);
+}
+
+.hub-subtitle {
+  color: #666;
+  font-size: 0.9rem;
+  letter-spacing: 2px;
+}
+
+/* The Grid of Subsystems */
+.system-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  overflow-y: auto;
+  margin-bottom: 20px;
+}
+
+.sys-card {
+  background: rgba(0,0,0,0.3);
+  border: 1px solid #333;
+  padding: 15px;
+  border-radius: 4px;
+  transition: all 0.3s;
+}
+
+.sys-card.online {
+  border-color: var(--leaf-color);
+  background: rgba(16, 185, 129, 0.05);
+  box-shadow: 0 0 10px rgba(16, 185, 129, 0.1);
+}
+
+.sys-card.offline {
+  border-color: #ef4444;
+  opacity: 0.6;
+}
+
+.sys-name {
+  font-size: 1.1rem;
+  font-weight: bold;
+  display: block;
+  margin-bottom: 5px;
+}
+
+.sys-status {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+}
+
+.sys-status.ok { color: var(--leaf-color); }
+.sys-status.err { color: #ef4444; }
+
+/* The "Manifesto" Text Area */
+.hub-manifesto {
+  grid-column: 1 / -1;
+  background: rgba(255, 255, 255, 0.03);
+  padding: 20px;
+  border-left: 4px solid var(--hub-color);
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+/* Security Clearance (The Practice Question) */
+.security-clearance {
+  background: black;
+  border: 1px dashed var(--hub-color);
+  padding: 20px;
+  margin-top: auto; /* Pushes to bottom */
+}
+
+.clearance-title {
+  color: var(--hub-color);
+  font-weight: bold;
+  margin-bottom: 10px;
+  display: block;
+  animation: blink 2s infinite;
+}
+
+.clearance-opt {
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: #111;
+  border: 1px solid #333;
+  color: #aaa;
+  padding: 10px;
+  margin-bottom: 5px;
+  cursor: pointer;
+  font-family: 'Share Tech Mono';
+}
+
+.clearance-opt:hover {
+  background: var(--hub-color);
+  color: black;
+}
+
+
+/* --- 9. MOBILE RESPONSIVENESS (UPDATED) --- */
 @media (max-width: 768px) {
   .data-panel {
-    width: 100%; height: 75vh;
-    top: auto; bottom: 0; right: 0; left: 0;
-    border-left: none; border-top: 1px solid rgba(255, 255, 255, 0.2);
+    /* Force reset dimensions for bottom drawer style */
+    width: 100% !important; 
+    height: 75vh;
+    
+    /* Reset position to stick to bottom, not right */
+    top: auto; 
+    bottom: 0; 
+    left: 0;
+    right: 0 !important; /* Overrides the desktop 'right: -700px' */
+    
+    /* Visuals for bottom drawer */
+    border-left: none; 
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 20px 20px 0 0;
-    transform: translateY(100%);
-    transition: transform 0.3s cubic-bezier(0.19, 1, 0.22, 1);
-  }
-  .data-panel.visible { right: 0; transform: translateY(0); }
-  
-  .hud-layer {
-    width: auto; right: 20px; bottom: 20px; top: auto; left: 20px;
-  }
-  .hud-top-row { flex-direction: column-reverse; align-items: flex-end; gap: 10px; }
-  
-  /* Home button on mobile */
-  .nav-home-absolute {
-      top: 20px;
-      left: 20px;
-      padding: 8px 15px;
-      font-size: 0.8rem;
+    
+    /* Animation Logic: Slide UP instead of slide LEFT */
+    transform: translateY(100%); 
+    transition: transform 0.4s cubic-bezier(0.19, 1, 0.22, 1);
   }
 
+  /* When active, slide up to 0 */
+  .data-panel.visible { 
+    transform: translateY(0);
+    /* We don't need to touch 'right' here because it's locked to 0 above */
+  }
+  
+  /* Adjust HUD layout for smaller screens */
+  .hud-layer {
+    width: auto; 
+    right: 20px; 
+    bottom: 20px; 
+    top: auto; 
+    left: 20px;
+  }
+  .hud-top-row { 
+    flex-direction: column-reverse; 
+    align-items: flex-end; 
+    gap: 10px; 
+  }
+  
+  /* Resize text and orbs */
   .panel-title { font-size: 1.5rem; }
   .panel-tabs button { padding: 8px; font-size: 0.8rem; }
   .content-stack { padding: 20px; }

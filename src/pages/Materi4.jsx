@@ -96,20 +96,26 @@ const academyData = {
         `
     },
     'logic': {
-        title: "THE FALSE LINK",
+        title: "THE FALSE LINK (Logic)",
         content: `
             <div class="theory-block">
-                <h3>1. Correlation ≠ Causation</h3>
+                <h3>1. The Logic: Neighbors vs. Family</h3>
                 <p class="theory-text">
-                    Cuma karena dua hal terjadi barengan, bukan berarti A menyebabkan B. <span class="highlight-term">GOLDEN RULE:</span> Jangan pilih jawaban "CAUSED" kecuali teks bilang "TRIGGERED".
+                    Otak manusia adalah "Mesin Pembuat Cerita". Jika kita melihat dua hal terjadi berurutan, otak kita otomatis ingin menghubungkannya.
+                    <br><br>
+                    <strong>Konsep Utama:</strong> <span class="highlight-term">Correlation ≠ Causation</span>.
+                    <br>
+                    Hanya karena B terjadi <em>setelah</em> A (Chronology), bukan berarti A <em>menyebabkan</em> B (Causality). Mereka mungkin hanya "tetangga" yang muncul bersamaan, bukan "keluarga" yang saling mempengaruhi.
                 </p>
             </div>
 
             <div class="rationale-box">
                 <span class="rationale-title">THE SNBT RATIONALE</span>
                 <p class="theory-text" style="color:black;">
-                    <strong>Ujian: LOGICAL REASONING.</strong><br>
-                    Ini adalah kesalahan logika paling fatal dalam penelitian ilmiah.
+                    <strong>Ujian: LOGICAL RIGOR (Ketajaman Logika).</strong><br>
+                    Salah satu kesalahan terbesar dalam berpikir kritis adalah <em>Hasty Generalization</em> (Menyimpulkan terlalu cepat). 
+                    <br><br>
+                    Di dunia akademik, menghubungkan dua data tanpa bukti nyata adalah fatal. Pembuat soal menguji: Apakah kamu membaca apa yang <em>tertulis</em> (Data), atau kamu sedang <em>berhalusinasi</em> mengarang hubungan sebab-akibat sendiri?
                 </p>
             </div>
 
@@ -117,18 +123,30 @@ const academyData = {
                 <h3>2. Case Study: Bedah Kasus</h3>
                 <div class="example-container">
                     <span class="example-label">TEXT FRAGMENT</span>
-                    <div class="example-text">"New logo launched in May. Sales dropped in June."</div>
+                    <div class="example-text">"The library introduced longer opening hours in September. By December, student stress levels were reported to be at an all-time high."</div>
+                    <div class="example-question">Question: What does the text indicate about the library hours?</div>
                 </div>
                 <div class="comp-grid">
                     <div class="comp-box comp-bad">
                         <span class="comp-header" style="color:var(--neon-red)">❌ TRAP (FALSE CAUSE)</span>
-                        "Logo <strong>caused</strong> sales drop."
+                        "Longer library hours <strong>led to</strong> higher stress."<br><br>
+                        <em>Why:</em> Salah! Teks tidak pernah bilang jam buka <em>menyebabkan</em> stres. Mungkin Desember stres karena musim ujian akhir, bukan karena perpustakaan!
                     </div>
                     <div class="comp-box comp-good">
                         <span class="comp-header" style="color:var(--neon-green)">✅ CORRECT</span>
-                        "Sales dropped <strong>after</strong> launch."
+                        "Stress levels peaked <strong>during the period</strong> of extended hours."<br><br>
+                        <em>Why:</em> Aman. Ini fakta 100%. Stress terjadi <em>bersamaan</em> (Timeline/Korelasi) tanpa menuduh siapa penyebabnya.
                     </div>
                 </div>
+            </div>
+
+            <div class="rationale-box" style="background:black; color:white; border-color:var(--neon-green);">
+                <span class="rationale-title" style="color:var(--neon-green); border-color:var(--neon-green);">THE DEFENSE STRATEGY</span>
+                <p class="theory-text">
+                    <strong>Golden Rule:</strong> Jangan pilih kata kerja aktif seperti <em>"Caused", "Resulted in", "Triggered"</em> KECUALI teksnya secara eksplisit menggunakan kata hubung sebab-akibat (<em>Because, Due to, Consequently</em>).
+                    <br><br>
+                    Jika tidak ada kata hubung itu, pilih jawaban yang "pasif" atau hanya menjelaskan waktu: <span class="highlight-term">Followed by</span>, <span class="highlight-term">Occurred after</span>, <span class="highlight-term">Associated with</span>.
+                </p>
             </div>
         `
     },
@@ -222,14 +240,51 @@ const academyData = {
                 <h3>1. The Absolutes</h3>
                 <p class="theory-text">
                     Dunia akademis jarang menggunakan kata "Selalu" (Always) atau "Tidak Pernah" (Never). 
-                    Jika opsi jawaban menggunakan kata-kata ekstrim ini, 90% kemungkinan itu <strong>SALAH</strong>.
+                    Jika opsi jawaban menggunakan kata-kata ekstrim ini, 90% kemungkinan itu <span class="highlight-bad">SALAH</span>.
+                    <br><br>
+                    Musuh utamamu adalah kata-kata yang <strong>menutup kemungkinan lain</strong> (Totalitas).
                 </p>
             </div>
+
             <div class="rationale-box">
-                <span class="rationale-title">THE DEFENSE STRATEGY</span>
+                <span class="rationale-title">THE SNBT RATIONALE</span>
                 <p class="theory-text" style="color:black;">
-                    <strong>Beware of:</strong> Always, Never, Must, Undeniably, Irrefutable.<br>
-                    <strong>Look for:</strong> Often, Rarely, Can, Suggests, Likely.
+                    <strong>Ujian: SCIENTIFIC ACCURACY (Akurasi Ilmiah).</strong><br>
+                    Di dunia kuliah, mengklaim "Semua" (All) padahal data hanya menunjukkan "Sebagian Besar" (Most) dianggap sebagai <strong>kebohongan data</strong>.
+                    <br><br>
+                    Penguji ingin melihat apakah kamu cukup jeli untuk membedakan antara <em>Fakta</em> dan <em>Generalisasi Berlebihan</em>.
+                </p>
+            </div>
+
+            <div class="theory-block" style="margin-top:30px;">
+                <h3>2. Case Study: Bedah Kasus</h3>
+                <div class="example-container">
+                    <span class="example-label">TEXT FRAGMENT</span>
+                    <div class="example-text">"Preliminary studies <span class="highlight-term">suggest</span> that the new vaccine is effective in <span class="highlight-term">most</span> test subjects."</div>
+                    <div class="example-question">Question: What does the text indicate about the vaccine?</div>
+                </div>
+                <div class="comp-grid">
+                    <div class="comp-box comp-bad">
+                        <span class="comp-header" style="color:var(--neon-red)">❌ TRAP (EXTREMIST)</span>
+                        "It is effective for <strong>everyone</strong>."<br><br>
+                        <em>Why:</em> Kata 'Most' (Sebagian besar) ≠ 'Everyone' (Semua). Ini mengubah makna teks secara fatal.
+                    </div>
+                    <div class="comp-box comp-good">
+                        <span class="comp-header" style="color:var(--neon-green)">✅ CORRECT</span>
+                        "It shows <strong>positive results</strong> in many cases."<br><br>
+                        <em>Why:</em> Aman. Menggunakan bahasa yang "sopan" (positive results) yang selaras dengan 'suggest' dan 'most'.
+                    </div>
+                </div>
+            </div>
+
+            <div class="rationale-box" style="background:black; color:white; border-color:var(--neon-green);">
+                <span class="rationale-title" style="color:var(--neon-green); border-color:var(--neon-green);">THE DEFENSE STRATEGY</span>
+                <p class="theory-text">
+                    <strong>Beware of (RED FLAGS):</strong><br> 
+                    <span class="highlight-bad">Always</span>, <span class="highlight-bad">Never</span>, <span class="highlight-bad">Must</span>, <span class="highlight-bad">Undeniably</span>, <span class="highlight-bad">All</span>, <span class="highlight-bad">Solely</span>.
+                    <br><br>
+                    <strong>Look for (GREEN FLAGS):</strong><br> 
+                    Often, Rarely, Can, Suggests, Likely, Many, Primarily.
                 </p>
             </div>
         `
@@ -345,43 +400,143 @@ const drills = {
     ],
     'nuance': [
         {
-            text: "In 1666, <span class='rl-safe'>Isaac Newton</span> formulated the laws of gravity while observing an apple fall. A century later, <span class='rl-safe'>Benjamin Franklin</span> conducted his famous kite experiment to demonstrate the electrical nature of lightning.",
-            question: "Which statement is <span class='q-focus'>TRUE</span> according to the text?",
+            text: "The rivalry between Nikola Tesla and Thomas Edison is legendary. Tesla, a <span class='vocab' data-def='Visioner (Punya pandangan masa depan)'>visionary</span> idealist, championed Alternating Current (AC) for its efficiency over long distances. Edison, a <span class='vocab' data-def='Pragmatis (Praktis/Realistis)'>pragmatic</span> businessman, fiercely defended his Direct Current (DC) system. While history notes that AC eventually became the global standard for power transmission, Edison's <span class='vocab' data-def='Ketajaman bisnis'>commercial acumen</span> allowed him to build a financial empire that Tesla never achieved.",
+            question: "What does the text imply about the <span class='q-focus'>INVENTORS</span>?",
             options: [
-                { text: "Isaac Newton conducted a kite experiment.", type: "trap", hint: "TRAP (The Mixer): Subject Swap. Newton did gravity, Franklin did the kite." },
-                { text: "Benjamin Franklin demonstrated the nature of lightning.", type: "correct", hint: "CORRECT: Matches Actor (Franklin) to Action (Lightning)." },
-                { text: "Gravity was discovered by Benjamin Franklin.", type: "trap", hint: "TRAP (The Mixer): Subject Swap." },
-                { text: "The apple experiment proved electricity.", type: "trap", hint: "TRAP (The Mixer): Object Swap (Apple = Gravity, not Electricity)." }
+                { 
+                    text: "Tesla was a better inventor than Edison.", 
+                    type: "trap", 
+                    hint: "TRAP (The Comparator): The text says Tesla was 'visionary' and Edison was 'pragmatic'. It lists their strengths side-by-side but never states who was 'better' overall." 
+                },
+                { 
+                    text: "Edison failed because AC became the standard.", 
+                    type: "trap", 
+                    hint: "TRAP (The Extremist): The text says Edison built a 'financial empire'. Losing one battle (AC vs DC) does not mean he 'failed' entirely." 
+                },
+                { 
+                    text: "They approached innovation with different priorities.", 
+                    type: "correct", 
+                    evidence: "Tesla, a visionary idealist... Edison, a pragmatic businessman", 
+                    hint: "CORRECT: Summarizes the contrast (Idealist vs. Businessman) without declaring a winner.", 
+                    map: [["idealist... businessman", "different priorities"], ["championed... defended", "approached innovation"]]
+                },
+                { 
+                    text: "Tesla lacked the intelligence to build a company.", 
+                    type: "trap", 
+                    hint: "TRAP (The Insult): The text says he didn't achieve a 'financial empire', but it doesn't say he lacked 'intelligence'." 
+                }
             ]
         },
         {
-            text: "While <span class='rl-safe'>coffee</span> is prized for its ability to increase alertness, <span class='rl-safe'>tea</span> is often consumed for its calming properties and lower caffeine content.",
-            question: "What does the text <span class='q-focus'>IMPLY</span> about the drinks?",
+            text: "Critics gave the new sci-fi blockbuster <span class='vocab' data-def='Beragam (Ada bagus, ada buruk)'>mixed</span> reviews. The visual effects were universally <span class='vocab' data-def='Disambut/Dipuji'>hailed</span> as groundbreaking, creating an immersive world never seen before. However, the narrative was frequently criticized as <span class='vocab' data-def='Dangkal (Tidak mendalam)'>shallow</span> and <span class='vocab' data-def='Tiruan (Tidak orisinal)'>derivative</span>, relying heavily on tired <span class='vocab' data-def='Klise (Ide pasaran)'>clichés</span> rather than character development.",
+            question: "What is the author's <span class='q-focus'>EVALUATION</span> of the film?",
             options: [
-                { text: "Coffee is more popular than tea.", type: "trap", hint: "TRAP (The Comparator): The text lists both, but NEVER compares popularity. 'More popular' is an assumption." },
-                { text: "Tea has less caffeine than coffee.", type: "correct", evidence: "tea... lower caffeine content", hint: "CORRECT: Explicit comparison in text." },
-                { text: "Tea is better for health.", type: "trap", hint: "TRAP (The Comparator): 'Better' is a value judgment not found in the text." },
-                { text: "Everyone prefers coffee in the morning.", type: "trap", hint: "TRAP (The Extreme): 'Everyone' is too strong." }
+                { 
+                    text: "It was a cinematic masterpiece.", 
+                    type: "trap", 
+                    hint: "TRAP (The Amplifier): Too positive. This ignores the criticism about the 'shallow' narrative." 
+                },
+                { 
+                    text: "It had aesthetic strengths but storytelling weaknesses.", 
+                    type: "correct", 
+                    evidence: "visual effects were... groundbreaking... However, the narrative was... shallow", 
+                    hint: "CORRECT: Perfectly captures the 'mixed' nature of the review (Good Visuals + Bad Story).", 
+                    map: [["visual effects... groundbreaking", "aesthetic strengths"], ["narrative... shallow", "storytelling weaknesses"]]
+                },
+                { 
+                    text: "The movie was a complete failure.", 
+                    type: "trap", 
+                    hint: "TRAP (The Amplifier): Too negative. It ignores the praise for the 'visual effects'." 
+                },
+                { 
+                    text: "The visuals were worse than the story.", 
+                    type: "trap", 
+                    hint: "TRAP (Reverse Comparison): The text says visuals were 'groundbreaking' (Good) and story was 'shallow' (Bad). This option flips them." 
+                }
             ]
         },
         {
-            text: "The pilot program showed <span class='rl-safe'>mixed results</span>. While some efficiency gains were noted, significant logistical challenges remain to be solved.",
-            question: "How does the author <span class='q-focus'>EVALUATE</span> the program?",
+            text: "In the 19th century, the Industrial Revolution shifted production from hand tools to steam-powered machinery. <span class='vocab' data-def='Selanjutnya/Berikutnya'>Subsequent</span> advancements in the 20th century introduced assembly lines and automation. Today, we are <span class='vocab' data-def='Menyaksikan'>witnessing</span> the dawn of 'Industry 4.0', <span class='vocab' data-def='Ditandai dengan'>characterized by</span> smart technology and artificial intelligence.",
+            question: "Which statement accurately reflects the <span class='q-focus'>TIMELINE</span>?",
             options: [
-                { text: "It was a complete failure.", type: "trap", hint: "TRAP (The Amplifier): Too extreme. 'Mixed results' does not mean 'Complete failure'." },
-                { text: "It showed promise but faced issues.", type: "correct", hint: "CORRECT: Captures the balanced tone ('mixed results')." },
-                { text: "It was a magnificent success.", type: "trap", hint: "TRAP (The Amplifier): Too positive. Ignores the 'challenges'." },
-                { text: "It should be cancelled immediately.", type: "trap", hint: "TRAP (The Amplifier): The author identifies problems but doesn't demand cancellation." }
+                { 
+                    text: "Artificial intelligence triggered the Industrial Revolution.", 
+                    type: "trap", 
+                    hint: "TRAP (The Time Traveler): AI is 'Industry 4.0' (Today), whereas the Industrial Revolution was 19th Century. The timeline is reversed." 
+                },
+                { 
+                    text: "Automation was introduced before steam power.", 
+                    type: "trap", 
+                    hint: "TRAP (The Time Traveler): Steam was 19th century; Automation was 20th century. Steam came first." 
+                },
+                { 
+                    text: "Technological shifts occurred in distinct phases.", 
+                    type: "correct", 
+                    evidence: "19th century... Subsequent advancements... Today", 
+                    hint: "CORRECT: Acknowledges the chronological progression (19th -> 20th -> Today).", 
+                    map: [["19th... 20th... Today", "distinct phases"], ["shifted... introduced... witnessing", "Technological shifts"]]
+                },
+                { 
+                    text: "Industry 4.0 is less important than the Industrial Revolution.", 
+                    type: "trap", 
+                    hint: "TRAP (The Comparator): The text lists them in order. It never ranks them by 'importance'." 
+                }
             ]
         },
         {
-            text: "The government <span class='rl-safe'>raised interest rates</span> in October. <span class='rl-safe'>Consequently</span>, inflation slowed down by December.",
-            question: "What is the correct <span class='q-focus'>TIMELINE</span> of events?",
+            text: "Solar energy is highly <span class='vocab' data-def='Berlimpah'>abundant</span> and renewable, yet its efficiency drops significantly at night or during cloudy weather. Nuclear energy, <span class='vocab' data-def='Demikian pula/Sama halnya'>likewise</span>, produces minimal greenhouse gases and provides consistent baseload power, though it faces public <span class='vocab' data-def='Pengawasan ketat/Kritik'>scrutiny</span> regarding radioactive waste disposal.",
+            question: "What is the text's <span class='q-focus'>STANCE</span> on energy sources?",
             options: [
-                { text: "Inflation slowed down, so the government raised rates.", type: "trap", hint: "TRAP (Reverse Causality): Reverses the Cause and Effect." },
-                { text: "The rate hike contributed to lower inflation.", type: "correct", hint: "CORRECT: Follows the timeline (October Action -> December Result)." },
-                { text: "Inflation rose after the rate hike.", type: "trap", hint: "TRAP (False Fact): Text says it 'slowed down'." },
-                { text: "The government plans to raise rates in December.", type: "trap", hint: "TRAP (Wrong Time): Hike was in October." }
+                { 
+                    text: "Nuclear energy is superior to solar energy.", 
+                    type: "trap", 
+                    hint: "TRAP (The Comparator): The text puts Solar and Nuclear on separate pedestals (Side-by-side). It lists pros/cons for both, but doesn't say one is the 'winner'." 
+                },
+                { 
+                    text: "Both sources have distinct advantages and limitations.", 
+                    type: "correct", 
+                    evidence: "Solar... abundant... yet efficiency drops... Nuclear... consistent... though it faces scrutiny", 
+                    hint: "CORRECT: Captures the nuance of 'Pros and Cons' for both subjects.", 
+                    map: [["abundant / consistent", "advantages"], ["efficiency drops / waste disposal", "limitations"]]
+                },
+                { 
+                    text: "Solar energy is useless because of clouds.", 
+                    type: "trap", 
+                    hint: "TRAP (The Extremist): 'Useless' is too strong. The text only says efficiency 'drops'." 
+                },
+                { 
+                    text: "Radioactive waste is the biggest problem in the world.", 
+                    type: "trap", 
+                    hint: "TRAP (The Scope): The text says it faces 'scrutiny', not that it is the 'biggest problem in the world'." 
+                }
+            ]
+        },
+        {
+            text: "The CEO's resignation letter was polite, <span class='vocab' data-def='Menyebutkan (sebagai alasan)'>citing</span> 'personal reasons' for his departure. However, industry insiders noted that the announcement <span class='vocab' data-def='Bertepatan waktu'>coincided</span> with the release of a quarterly report showing a massive drop in profits, leading many to <span class='vocab' data-def='Berspekulasi/Menduga'>speculate</span> that the exit was not entirely <span class='vocab' data-def='Sukarela/Atas kemauan sendiri'>voluntary</span>.",
+            question: "What does the text suggest about the <span class='q-focus'>RESIGNATION</span>?",
+            options: [
+                { 
+                    text: "The CEO was definitely fired.", 
+                    type: "trap", 
+                    hint: "TRAP (The Extremist): The text says people 'speculate'. It does not confirm he was fired as a fact." 
+                },
+                { 
+                    text: "There may be a link between the exit and financial performance.", 
+                    type: "correct", 
+                    evidence: "coincided with... massive drop in profits, leading many to speculate", 
+                    hint: "CORRECT: 'May be a link' is safe language for 'speculate' and 'coincided'.", 
+                    map: [["speculate", "may be"], ["coincided with", "link between"]]
+                },
+                { 
+                    text: "The quarterly report was fake.", 
+                    type: "trap", 
+                    hint: "TRAP (Not Mentioned): Nothing in the text suggests the report was falsified." 
+                },
+                { 
+                    text: "The CEO retired due to old age.", 
+                    type: "trap", 
+                    hint: "TRAP (False Cause): The letter cited 'personal reasons', but didn't specify age." 
+                }
             ]
         }
     ],
@@ -633,54 +788,90 @@ const drills = {
     ],
     'mirage': [
         {
-            text: "Generative AI allows users to create images by prompting algorithms trained on vast datasets. While this democratizes art creation, legal scholars argue it creates <span class='vocab' data-def='Ketidakjelasan'>ambiguity</span> regarding <span class='vocab' data-def='Hak cipta'>copyright</span> ownership. Currently, laws struggle to define whether a machine can be an 'author'.",
-            question: "What is the primary <span class='q-focus'>LEGAL ISSUE</span> discussed?",
+            text: "Generative AI allows users to create images by prompting algorithms trained on vast datasets. While this <span class='vocab' data-def='Mendemokratisasi (Membuat bisa diakses semua orang)'>democratizes</span> art creation, legal scholars argue it creates <span class='vocab' data-def='Ketidakjelasan'>ambiguity</span> regarding <span class='vocab' data-def='Hak cipta'>copyright</span> ownership. Currently, existing laws struggle to define whether a machine—or the human prompter—can be considered the legal 'author' of a generated work.",
+            question: "What is the primary <span class='q-focus'>LEGAL CHALLENGE</span> discussed?",
             options: [
-                { text: "The algorithmic juxtaposition of neural pathways creates an irrefutable paradigm shift in aesthetic quantification.", type: "trap", hint: "TRAP (Word Salad): This is the longest option and uses big words (juxtaposition, irrefutable paradigm), but it is meaningless jargon not supported by the text." },
-                {
-                    text: "It creates ambiguity regarding copyright ownership.",
-                    type: "correct",
-                    evidence: "creates ambiguity regarding copyright ownership",
-                    hint: "CORRECT: Directly supported by the text.",
-                    map: [["creates ambiguity", "LEGAL ISSUE"], ["copyright ownership", "copyright ownership"]]
+                { 
+                    text: "The integration of digital frameworks requires complex algorithmic regulation to facilitate global compliance.", 
+                    type: "trap", 
+                    hint: "TRAP (The Mirage): Uses high-level vocabulary (integration, frameworks, compliance) to sound sophisticated, but fails to address the specific issue of 'authorship'." 
                 },
-                { text: "AI will undeniably replace all human artists.", type: "trap", hint: "TRAP (Absolute): 'Undeniably' and 'All' are too extreme." },
-                { text: "Machine learning is illegal.", type: "trap", hint: "TRAP (False Fact): Text says laws struggle, not that it is illegal." }
+                { 
+                    text: "It creates uncertainty regarding who owns the copyright.", 
+                    type: "correct", 
+                    evidence: "creates ambiguity regarding copyright ownership", 
+                    hint: "CORRECT: Simple, direct, and matches the text's specific concern about authorship.", 
+                    map: [["creates ambiguity", "creates uncertainty"], ["copyright ownership", "who owns the copyright"]]
+                },
+                { 
+                    text: "AI will undeniably replace all human artists shortly.", 
+                    type: "trap", 
+                    hint: "TRAP (The Extremist): The text discusses legal issues, not a future prediction of replacing all artists." 
+                },
+                { 
+                    text: "Machine learning is illegal in most countries.", 
+                    type: "trap", 
+                    hint: "TRAP (False Fact): The text says laws 'struggle to define' it, not that it is illegal." 
+                }
             ]
         },
         {
-            text: "Vitamin supplements are popular for general health maintenance. Clinical trials indicate that while they can correct specific deficiencies (like Scurvy or Rickets), their efficacy in preventing chronic diseases in already healthy adults is inconclusive. Overconsumption of fat-soluble vitamins can even be <span class='vocab' data-def='Beracun/Berbahaya'>toxic</span>.",
+            text: "Vitamin supplements are popular for general health maintenance. Clinical trials <span class='vocab' data-def='Mengindikasikan/Menunjukkan'>indicate</span> that while they can correct specific <span class='vocab' data-def='Kekurangan (Zat gizi)'>deficiencies</span> (like Scurvy or Rickets), their <span class='vocab' data-def='Keampuhan/Efektivitas'>efficacy</span> in preventing chronic diseases in already healthy adults is inconclusive. Furthermore, overconsumption of fat-soluble vitamins can actually result in <span class='vocab' data-def='Keracunan'>toxicity</span>.",
             question: "What does the text suggest about <span class='q-focus'>SUPPLEMENTS</span>?",
             options: [
-                { text: "They undeniably optimize cellular regeneration and maximize longevity in all biological subjects.", type: "trap", hint: "TRAP (Word Salad): Longest answer with scientific buzzwords (cellular regeneration), but uses absolutes ('Undeniably', 'All') which the text contradicts." },
-                {
-                    text: "They may offer benefits in specific cases of deficiency.",
-                    type: "correct",
-                    evidence: "can correct specific deficiencies",
-                    hint: "CORRECT: Uses safe hedging words ('May', 'Specific cases').",
+                { 
+                    text: "A substantial correlation exists between metabolic optimization and the daily intake of high-dosage vitamins.", 
+                    type: "trap", 
+                    hint: "TRAP (The Mirage): Uses scientific jargon (correlation, metabolic optimization) to sound like a correct medical statement, but contradicts the text which calls efficacy 'inconclusive'." 
+                },
+                { 
+                    text: "They may offer benefits in specific cases of deficiency.", 
+                    type: "correct", 
+                    evidence: "can correct specific deficiencies", 
+                    hint: "CORRECT: Accurate and uses safe hedging words ('May', 'Specific cases').", 
                     map: [["can correct", "may offer benefits"], ["specific deficiencies", "specific cases"]]
                 },
-                { text: "They are toxic for everyone.", type: "trap", hint: "TRAP (Scope Error): Text says 'Overconsumption' is toxic, not the vitamin itself." },
-                { text: "They cure all chronic diseases.", type: "trap", hint: "TRAP (False Info): Text says efficacy is 'inconclusive'." }
+                { 
+                    text: "They are toxic for everyone who takes them.", 
+                    type: "trap", 
+                    hint: "TRAP (Scope Error): Text says 'Overconsumption' is toxic, not the vitamin itself." 
+                },
+                { 
+                    text: "They cure all chronic diseases effectively.", 
+                    type: "trap", 
+                    hint: "TRAP (False Info): Text explicitly says efficacy is 'inconclusive'." 
+                }
             ]
         },
         {
-            text: "Fiscal policy involves the government using spending and taxation to influence the economy. When an economy stalls, governments often increase spending to stimulate growth. However, if spending increases too fast without tax revenue, it can lead to inflation.",
+            text: "Fiscal policy involves the government using spending and taxation to influence the economy. When an economy <span class='vocab' data-def='Macet/Berhenti tumbuh'>stalls</span>, governments often increase spending to <span class='vocab' data-def='Mendorong/Memacu'>stimulate</span> growth. However, economists warn that if spending increases too fast without adequate tax revenue, it can lead to <span class='vocab' data-def='Inflasi (Kenaikan harga)'>inflation</span> and currency devaluation.",
             question: "How does fiscal policy affect the <span class='q-focus'>ECONOMY</span>?",
             options: [
-                { text: "The juxtaposition of fiscal austerity implies a macro-economic divergence in monetary liquidity flows.", type: "trap", hint: "TRAP (Word Salad): A collection of economic jargon that means nothing in the context of the text." },
-                {
-                    text: "Adjustments in spending tend to influence economic growth.",
-                    type: "correct",
-                    evidence: "using spending... to influence the economy",
-                    hint: "CORRECT: Simple, supported summary using the safe verb 'tend to'.",
+                { 
+                    text: "Systematic macroeconomic stability relies primarily on the suppression of monetary fluctuations through austerity.", 
+                    type: "trap", 
+                    hint: "TRAP (The Mirage): Sounds like an economics textbook definition, but completely ignores the text's actual topic of 'spending to stimulate growth'." 
+                },
+                { 
+                    text: "Adjustments in spending tend to influence economic growth.", 
+                    type: "correct", 
+                    evidence: "using spending... to influence the economy... stimulate growth", 
+                    hint: "CORRECT: Simple, supported summary using the safe verb 'tend to'.", 
                     map: [["using spending", "Adjustments in spending"], ["influence the economy", "influence economic growth"]]
                 },
-                { text: "Government spending always causes inflation.", type: "trap", hint: "TRAP (Absolute): Text says 'if spending increases too fast', not always." },
-                { text: "Taxation is the only tool.", type: "trap", hint: "TRAP (Extreme): Text mentions 'spending AND taxation'." }
+                { 
+                    text: "Government spending always causes inflation.", 
+                    type: "trap", 
+                    hint: "TRAP (The Extremist): Text says 'if spending increases too fast', not always." 
+                },
+                { 
+                    text: "Taxation is the only tool governments have.", 
+                    type: "trap", 
+                    hint: "TRAP (The Extremist): Text mentions 'spending AND taxation'." 
+                }
             ]
         }
-    ]
+    ],
 };
 
 // --- PART 2: COMPONENT LOGIC ---
