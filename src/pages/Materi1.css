@@ -212,24 +212,24 @@
 
 .focus-card {
     background: #f8fafc;
-    /* Let React control the size */
-    width: auto; 
-    height: auto;
+    /* This is the magic fix: */
+    width: fit-content;   /* Shrinks to fit ONLY the quiz initially */
+    max-width: 90vw;      
+    max-height: 90vh;
     
-    /* Flexbox setup */
     display: flex;
-    flex-direction: row;
-    overflow: hidden;
+    flex-direction: row;  /* Side-by-side layout */
+    overflow: hidden;     /* Hides the explanation until it slides out */
     
-    padding: 0;
     border-radius: 4px;
     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
+    transition: all 0.3s ease; /* Smooth resizing */
 }
 
 .quiz-section {
-    width: 500px; /* Fixed width */
-    flex-shrink: 0;
-    padding: 40px;
+    width: 100%;          /* Switch from 500px to 100% */
+    flex-shrink: 1;       /* Allow it to shrink on small screens */
+    padding: 20px;        /* Reduced padding for mobile */
     background: #f8fafc;
     z-index: 2;
     position: relative;
@@ -260,6 +260,13 @@
     justify-content: center;
     box-shadow: 0 2px 5px rgba(0,0,0,0.3);
     z-index: 50; 
+}
+
+@media (min-width: 801px) {
+    .quiz-section {
+        width: 500px;
+        padding: 40px;
+    }
 }
 
 /* 6. QUIZ UI */
@@ -540,4 +547,33 @@
     color: #78350f;
     /* Prevent text wrapping changes during animation */
     white-space: normal;
+}
+
+@media (max-width: 800px) {
+    .focus-card {
+        flex-direction: column; /* Stack vertically */
+        width: 92vw;           /* Fixed width on mobile */
+        height: auto;          /* Let height grow */
+        overflow-y: auto;      /* Scrollable if too tall */
+    }
+
+    .explanation-content {
+        width: 100%;           /* Remove the fixed 400px width */
+        padding: 20px;
+    }
+
+    .source-text {
+        font-size: 1rem;       /* Slightly smaller text for small screens */
+        padding: 15px;
+    }
+
+    .option-btn {
+        padding: 12px 35px 12px 12px; /* Tighter padding for buttons */
+    }
+
+    .explanation-section {
+        width: 100% !important; 
+        border-left: none;
+        border-top: 2px dashed #b45309;
+    }
 }

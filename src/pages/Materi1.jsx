@@ -131,11 +131,20 @@ const playSound = (type) => {
 };
 
 // --- UPDATED SUB-COMPONENT: TRAP MODAL ---
-// Replace your TrapModal with this optimized version
 const TrapModal = ({ trap, onClose, onSolve }) => {
     const [selectedIdx, setSelectedIdx] = useState(null);
     const [status, setStatus] = useState('idle');
     const [shake, setShake] = useState(false);
+    
+    // 1. ADD THIS CHECK: Determine if we are on mobile
+    const [isMobile, setIsMobile] = useState(window.innerWidth <= 800);
+
+    // Update check on resize (optional but good for testing)
+    useEffect(() => {
+        const handleResize = () => setIsMobile(window.innerWidth <= 800);
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
 
     const handleAnswer = (index) => {
         if (status === 'correct') return;
@@ -156,93 +165,66 @@ const TrapModal = ({ trap, onClose, onSolve }) => {
         <div className="focus-overlay">
             <motion.div
                 className="focus-card"
-                layoutId={`trap-${trap.id}`}
-                // The 'layout' prop is the magic sauce for smooth resizing
-                layout
-                transition={{
-                    layout: { duration: 0.4, type: "spring", stiffness: 100, damping: 15 }
-                }}
+                layout 
+                // Remove the forced layoutId if it causes glitching, 
+                // or keep it if you want the zoom-in effect from the board.
+                // layoutId={`trap-${trap.id}`} 
                 animate={shake ? { x: [-10, 10, -10, 10, 0] } : {}}
             >
-                {/* CLOSE BUTTON */}
+                {/* ... (Close Button & Quiz Section remain the same) ... */}
+                
                 {status !== 'correct' && (
-                    <button className="close-btn" onClick={onClose} style={{
-                        position: 'absolute', top: '10px', left: '10px', zIndex: 50,
-                        background: '#b91c1c', color: 'white', border: 'none',
-                        width: '30px', height: '30px', borderRadius: '50%', cursor: 'pointer'
-                    }}>×</button>
+                    <button className="close-btn" onClick={onClose}>×</button>
                 )}
 
-                {/* LEFT SIDE */}
-                <motion.div layout className="quiz-section">
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '15px', marginBottom: '20px' }}>
+                <div className="quiz-section">
+                     {/* ... (Keep your existing Quiz Content here) ... */}
+                     {/* Just keeping the structure clear for you */}
+                     <div style={{ display: 'flex', alignItems: 'center', gap: '15px', marginBottom: '20px' }}>
                         <span style={{ fontSize: '3rem' }}>{trap.icon}</span>
                         <div>
                             <h2 style={{ margin: 0, fontFamily: 'Special Elite' }}>{trap.title}</h2>
                             <div style={{ fontFamily: 'Patrick Hand', color: '#b91c1c', fontSize: '1.2rem' }}>{trap.label}</div>
                         </div>
                     </div>
-
                     <div className="source-text" dangerouslySetInnerHTML={{ __html: trap.text }}></div>
                     <p style={{ fontFamily: 'Special Elite', fontWeight: 'bold' }}>Q: {trap.question}</p>
-
                     <div>
-                        {trap.options.map((opt, i) => {
-                            const letter = String.fromCharCode(65 + i);
-                            const isSelected = selectedIdx === i;
-                            const isCorrect = status === 'correct' && i === trap.answerIndex;
-                            const isWrong = status === 'wrong' && isSelected;
-                            return (
-                                <button
-                                    key={i}
-                                    className="option-btn"
-                                    onClick={() => handleAnswer(i)}
-                                    disabled={status === 'correct'}
-                                    style={{
-                                        borderColor: isCorrect ? '#16a34a' : (isWrong ? '#b91c1c' : '#1e293b'),
-                                        backgroundColor: isCorrect ? '#dcfce7' : (isWrong ? '#fee2e2' : 'white'),
-                                        opacity: (status === 'correct' && !isCorrect) ? 0.4 : 1
-                                    }}
-                                >
-                                    <span style={{ fontWeight: 'bold', marginRight: '10px', color: '#b91c1c' }}>
-                                        {letter}.
-                                    </span>
-                                    <span dangerouslySetInnerHTML={{ __html: opt }}></span>
-                                    {isCorrect && <span className="feedback-icon icon-check">✓</span>}
-                                    {isWrong && <span className="feedback-icon icon-x">✗</span>}
-                                </button>
-                            );
-                        })}
+                        {trap.options.map((opt, i) => (
+                             <button key={i} className="option-btn" onClick={() => handleAnswer(i)} disabled={status === 'correct'} 
+                                style={{
+                                    borderColor: status === 'correct' && i === trap.answerIndex ? '#16a34a' : (status === 'wrong' && selectedIdx === i ? '#b91c1c' : '#1e293b'),
+                                    backgroundColor: status === 'correct' && i === trap.answerIndex ? '#dcfce7' : (status === 'wrong' && selectedIdx === i ? '#fee2e2' : 'white')
+                                }}
+                             >
+                                 <span style={{ fontWeight: 'bold', marginRight: '10px' }}>{String.fromCharCode(65 + i)}.</span>
+                                 <span dangerouslySetInnerHTML={{ __html: opt }}></span>
+                             </button>
+                        ))}
                     </div>
-                </motion.div>
+                </div>
 
-                {/* RIGHT SIDE (Explanation) */}
+
+                {/* 2. UPDATE THIS ANIMATION SECTION */}
                 <motion.div
                     className="explanation-section"
-                    layout
-                    initial={{ width: 0, opacity: 0 }}
-                    animate={{
-                        width: status === 'correct' ? 450 : 0,
-                        opacity: status === 'correct' ? 1 : 0
-                    }}
+                    initial={isMobile ? { height: 0, opacity: 0 } : { width: 0, opacity: 0 }}
+                    animate={
+                        isMobile 
+                        ? { height: status === 'correct' ? 'auto' : 0, opacity: status === 'correct' ? 1 : 0 }
+                        : { width: status === 'correct' ? 450 : 0, opacity: status === 'correct' ? 1 : 0 }
+                    }
                     transition={{
                         duration: 0.5,
                         type: "spring",
-                        bounce: 0, // Zero bounce prevents 'wobbly' width calculations
-                        opacity: { duration: 0.3, delay: 0.2 } // Fade in text slightly later
+                        bounce: 0,
+                        opacity: { duration: 0.3, delay: 0.2 }
                     }}
                 >
                     <div className="explanation-content">
                         <div className="explanation-header">Investigation Notes</div>
                         <div dangerouslySetInnerHTML={{ __html: trap.explanation }}></div>
-
-                        <button
-                            className="continue-btn"
-                            onClick={() => onSolve(trap.id)}
-                            style={{ marginTop: '30px' }}
-                        >
-                            CASE CLOSED
-                        </button>
+                        <button className="continue-btn" onClick={() => onSolve(trap.id)}>CASE CLOSED</button>
                     </div>
                 </motion.div>
             </motion.div>
