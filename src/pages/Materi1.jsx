@@ -261,6 +261,12 @@ function Materi1() {
 
     // VISUAL STATES
     const [flashlight, setFlashlight] = useState(true);
+    useEffect(() => {
+        // Check if mobile on load, turn off flashlight for better UX
+        if (window.innerWidth < 950) {
+            setFlashlight(false);
+        }
+    }, []);
     const [mousePos, setMousePos] = useState({ x: '50%', y: '50%' });
     const [hubOpen, setHubOpen] = useState(false);
     const [audioEnabled, setAudioEnabled] = useState(false);

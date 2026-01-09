@@ -321,33 +321,49 @@
 
 /* MOBILE OPTIMIZATION */
 @media (max-width: 950px) {
-    .focus-card {
-        flex-direction: column;
-        width: 90vw;
-        max-height: 90vh;
-        overflow-y: auto;
-    }
-    .quiz-section { width: 100%; }
-    .explanation-section { width: 100% !important; border-left: none; border-top: 2px dashed #b45309; }
-    .explanation-content { width: 100%;}   
-    
-    .wall-board {
-        width: 100%; height: auto; display: flex; flex-direction: column; align-items: center; gap: 30px; padding-top: 80px; transform: none;
+    /* 1. UNLOCK THE ROOM CONTAINER */
+    .detective-room {
+        position: relative;        /* Unpins the container */
+        height: auto;              /* Allows it to grow with content */
+        min-height: 100vh;         /* Ensures it's at least full screen */
+        overflow-y: auto;          /* Enables vertical scrolling */
+        touch-action: auto;        /* Re-enables touch scrolling */
+        display: block;            /* Removes flex centering (prevents top-cropping) */
+        padding-bottom: 100px;     /* Extra space at bottom for scrolling */
     }
 
-    .evidence-item, .hub-file, .id-card {
-        position: relative !important; top: auto !important; left: auto !important; right: auto !important; bottom: auto !important;
-        transform: rotate(0deg) !important; margin: 0; width: 90%; max-width: 400px; height: auto;
+    /* 2. ADJUST THE BOARD LAYOUT */
+    .wall-board {
+        width: 100%; 
+        height: auto; 
+        display: flex; 
+        flex-direction: column; 
+        align-items: center; 
+        gap: 30px; 
+        padding-top: 80px; 
+        transform: none;
+        overflow: visible; /* Ensure content isn't clipped inside */
     }
-    .id-card { order: -1; margin-bottom: 20px; }
-    .string-layer, .coffee-stain { display: none; }
-    
-    /* Keep flashlight on mobile */
+
+    /* 3. FIX EVIDENCE ITEMS POSITIONING */
+    .evidence-item, .hub-file, .id-card {
+        position: relative !important; 
+        top: auto !important; 
+        left: auto !important; 
+        right: auto !important; 
+        bottom: auto !important;
+        transform: rotate(0deg) !important; 
+        margin: 20px 0; /* Add spacing between items */
+        width: 90%; 
+        max-width: 400px; 
+        height: auto;
+    }
+
+    /* 4. KEEP FLASHLIGHT FIXED (Optional) */
+    /* Since the room now scrolls, the flashlight needs to stay sticky on top */
     .flashlight-layer {
-        background: radial-gradient(
-            circle 250px at var(--x) var(--y),
-            rgba(0,0,0,0) 0%, rgba(0,0,0,0.05) 30%, rgba(0,0,0,0.98) 100%
-        );
+        position: fixed; /* Keep this fixed so the light follows the viewport */
+        height: 100vh;
     }
 }
 
